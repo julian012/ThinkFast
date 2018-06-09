@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmployeeList>
+  <Employee>
+    <id>1032477801</id>
+    <firstName>Julián Camilo</firstName>
+    <lastName>Serna Vargas</lastName>
+    <birthDate>12/01/1996</birthDate>
+    <jobTitle>Tecnologo Sistemas</jobTitle>
+    <professionalPorfile>Tecnólogo en Análisis y Desarrollo de Sistemas de Información en el Servicio Nacional de Aprendizaje – SENA (Centro Minero) con capacidad de desarrollar por medio de las TIC’S herramientas informáticas, que mejoren los procesos que integren las diferentes áreas de la organización.Cuento con facilidad y disposición para el trabajo en grupo, actitud para la generación de ideas, facilidad para implementar y poner en marcha los proyectos que se estructuren de acuerdo a las necesidades de la empresa.</professionalPorfile>
+    <email>julicamnet@gmail.com</email>
+    <photoPath>ghnfbvdcsdfgbhjgbfdvxvdfvgd.png</photoPath>
+    <password>julian012</password>
+    <numberPhone>3102967099</numberPhone>
+    <address>Calle 27 No 20 - 84</address>
+    <department>Boyacá</department>
+    <city>Tunja</city>
+  </Employee>
+  <Employee>
+    <id>456743</id>
+    <firstName>Andres Felipe</firstName>
+    <lastName>Gonzalez Bonilla</lastName>
+    <birthDate>15/04/1999</birthDate>
+    <jobTitle>Ingeniero de Sistemas</jobTitle>
+    <professionalPorfile>kj,hgftdrtyhjikkyghtfrdetyjukijuythr</professionalPorfile>
+    <email>felip@gmail.com</email>
+    <photoPath>Captura de pantalla de 2017-11-18 11-21-39.png</photoPath>
+    <password>felip</password>
+    <numberPhone>76543</numberPhone>
+    <address>Cerca a la iglesia</address>
+    <department>Boyacá</department>
+    <city>Tibasosa</city>
+  </Employee>
+</EmployeeList>

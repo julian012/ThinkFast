@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompanyList>
+  <Company>
+    <id>18954673</id>
+    <name>Servicios Temporales &amp; Outsourcing</name>
+    <description>Envío de empleados en misión a todo el territorio nacional, de personas previamente seleccionadas que estarán alineadas al perfil y objetivos de su organización.
+​
+Los mejores empleos para las mejores personas.
+
+Diseñamos procesos específicos que solucionarán su necesidades en la Gestión del Talento Humano, al tercerizar estos servicios usted mejorará la productividad y sus costos operativos disminuirán, permitiéndole enfocarse en el propósito de su negocio.
+
+Nuestros aliados estratégicos, son quienes desde su experiencia aportan valor y generan una alternativa competitiva que fortalecerá su negocio.</description>
+    <email>info@staffing.com.co</email>
+    <photoPath>4ab511_09c7513b66234f338713b32d2389935c-mv2.png</photoPath>
+    <password>staffing</password>
+    <numberPhone>742 56 05</numberPhone>
+    <address>Carrera 19B # 82 - 46 Piso 7 Edificio</address>
+    <department>Cundinamarca</department>
+    <city>Bogotá</city>
+  </Company>
+</CompanyList>
