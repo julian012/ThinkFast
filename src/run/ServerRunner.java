@@ -1,5 +1,10 @@
 package run;
 
-public class ServerRunner {
+import controller.ServerController;
 
+public class ServerRunner {
+	
+	public static void main(String[] args) {
+		new ServerController();
+	}
 }

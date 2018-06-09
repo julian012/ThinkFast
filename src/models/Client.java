@@ -32,7 +32,7 @@ public class Client extends Thread {
 		input = new DataInputStream(socket.getInputStream());
 		output = new DataOutputStream(socket.getOutputStream());
 		//resultConnection = input.readUTF();
-		initConnection();
+		//initConnection();
 	}
 	
 	public void initConnection() {
