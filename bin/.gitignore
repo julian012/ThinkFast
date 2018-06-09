@@ -1,7 +1,6 @@
-/connection/
-/controller/
-/img/
 /models/
 /persistence/
 /run/
 /view/
+/img/
+/controller/

@@ -18,4 +18,11 @@ public class Constraints {
 	public static final Color COLOR_GREEN = Color.decode("#02D174");
 	public static final Color COLOR_PURPLE = Color.decode("#9873E6");
 	
+	//Creando usuario
+	public static final String BUTTON_UPLOAD_IMAGE = "Subir imagen";
+	public static final String JLABEL_NAME = "Nombre completo";
+	public static final String JLABEL_NICKNAME = "NickName";
+	public static final String JLABEL_BIRTHDATE = "Fecha de nacimiento";
+	
+	
 }

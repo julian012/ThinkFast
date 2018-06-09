@@ -118,6 +118,12 @@ public class JFSingIn extends JFrame {
 		return jPFPassword.getPassword();
 	}
 	
+	public void showF() {
+		revalidate();
+		repaint();
+		this.setVisible(true);
+	}
+	
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
