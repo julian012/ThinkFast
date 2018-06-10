@@ -1,6 +1,10 @@
+/img/
+/connection/
+/controller/
 /models/
 /persistence/
 /run/
 /view/
-/img/
-/controller/
+/structure/
+/utilities/
+/observer/
