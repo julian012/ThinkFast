@@ -62,7 +62,6 @@ public class JFSingIn extends JFrame {
 		try {
 			imageBackGround = ImageIO.read(getClass().getResource("../img/background.png"));
 			imageLogo = ImageIO.read(getClass().getResource("../img/Logo.png"));
-			System.out.println("No dio error");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -105,7 +104,7 @@ public class JFSingIn extends JFrame {
 		jBSingUp = new JButton(Constraints.BUTTON_SINGUP);
 		jBSingUp.setBackground(Constraints.COLOR_PURPLE);
 		jBSingUp.addActionListener(clientController);
-		jBSingUp.setActionCommand(Events.SING_UP.toString());
+		jBSingUp.setActionCommand(Events.CHANGE_TO_SING_UP.toString());
 		jBSingUp.setBounds(567, 372, 231, 29);
 		this.add(jBSingUp);
 	}

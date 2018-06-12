@@ -62,9 +62,18 @@ public class JFSingUp extends JFrame implements ActionListener{
 		getContentPane().setBackground(Constraints.COLOR_BACKGROUND);
 		setLayout(null);
 		initComponents(clientController);
-		revalidate();
-		repaint();
 		setVisible(true);
+		timeToLoad();
+	}
+	
+	public void timeToLoad() {
+		try {
+			Thread.sleep(1000);
+			revalidate();
+			repaint();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void setUIManager() {
@@ -141,6 +150,8 @@ public class JFSingUp extends JFrame implements ActionListener{
 
 		jBSingUp = new JButton(Constraints.BUTTON_SINGUP);
 		jBSingUp.setBackground(Constraints.COLOR_PURPLE);
+		jBSingUp.addActionListener(clientController);
+		jBSingUp.setActionCommand(Events.SING_UP.toString());
 		jBSingUp.setBounds(477, 383, 180, 36);
 		this.add(jBSingUp);
 
@@ -181,6 +192,10 @@ public class JFSingUp extends JFrame implements ActionListener{
 	public char[] getPassword() {
 		return jPFPassword.getPassword();
 	}
+	
+	public File getImageUser() {
+		return pathImageUser;
+	}
 
 
 	@Override
@@ -202,6 +217,5 @@ public class JFSingUp extends JFrame implements ActionListener{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-
 	}
 }

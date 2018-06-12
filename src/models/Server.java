@@ -1,6 +1,5 @@
 package models;
 
-import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -52,9 +51,28 @@ public class Server extends Thread implements IObsevable{
 		case CREATE_ACCOUNT_USER:
 			createAccountUser(socket,inputStream);
 			break;
-
+		case LOG_IN:
+			logIn(socket, inputStream);
+			break;
 		default:
 			break;
+		}
+	}
+	
+	private void logIn(Socket socket, DataInputStream inputStream) throws IOException {
+		DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
+		String email = inputStream.readUTF();
+		String password = inputStream.readUTF();
+		validateLogin(outputStream, socket, email, password);
+	}
+	
+	private void validateLogin(DataOutputStream outputStream, Socket socket, String email, String password) throws IOException {
+		User user = validateEmailAndPassword(email, password);
+		if(user != null ) {
+			outputStream.writeUTF(Request.LOGING_ACCEPTED.toString());
+			connectionList.add(new Connection(socket, this, user));
+		}else {
+			outputStream.writeUTF(Request.LOGING_FAIL.toString());
 		}
 	}
 	
@@ -66,11 +84,17 @@ public class Server extends Thread implements IObsevable{
 		DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
 		if(resultEmail == true && resultNickname == true) {
 			outputStream.writeUTF(Request.EMAIL_OK_NICKNAME_OK.toString());
-			createAccountUserOk(inputStream, outputStream);
+			createAccountUserOk(socket,inputStream, outputStream);
+		}else if(resultEmail == false && resultNickname == true) {
+			outputStream.writeUTF(Request.EMAIL_BAD_NICKNAME_OK.toString());
+		}else if(resultEmail == true && resultNickname == false) {
+			outputStream.writeUTF(Request.EMAIL_OK_NICKNAME_BAD.toString());
+		}else {
+			outputStream.writeUTF(Request.EMAIL_BAD_NICKNAME_BAD.toString());
 		}
 	}
 	
-	public void createAccountUserOk(DataInputStream inputStream, DataOutputStream outputStream) throws IOException {
+	public void createAccountUserOk(Socket socket,DataInputStream inputStream, DataOutputStream outputStream) throws IOException {
 		String email = inputStream.readUTF();
 		String nickname = inputStream.readUTF();
 		String name = inputStream.readUTF();;
@@ -79,9 +103,13 @@ public class Server extends Thread implements IObsevable{
 		String nameImage = inputStream.readUTF();
 		byte[] image = new byte[inputStream.readInt()];
 		inputStream.readFully(image);
-		userList.addNode(new NodeSimpleList<User>(new User(UUID.randomUUID().toString(), 
-				name, nickname, email, password, birthdate, Utilities.saveImage(image, nameImage))));
+		String id = UUID.randomUUID().toString();
+		User user = new User(id, 
+				name, nickname, email, password, birthdate, Utilities.saveImage(image, nameImage, id));
+		userList.addNode(new NodeSimpleList<User>(user));
 		notifyChange();
+		outputStream.writeUTF(Request.USER_CREATED_CORRECTLY.toString());
+		connectionList.add(new Connection(socket, this, user));
 	}
 	
 	public boolean validateEmailCreateUser(String email) {
@@ -104,6 +132,17 @@ public class Server extends Thread implements IObsevable{
 			actualNode = actualNode.getNext();
 		}
 		return true;
+	}
+	
+	public User validateEmailAndPassword(String email, String password) {
+		NodeSimpleList<User> actualNode = userList.getHead();
+		while(actualNode != null) {
+			if(actualNode.getInfo().getEmail().equals(email) && actualNode.getInfo().getPassword().equals(password)) {
+				return actualNode.getInfo();
+			}
+			actualNode = actualNode.getNext();
+		}
+		return null;
 	}
 	
 	public void notifyChange() {

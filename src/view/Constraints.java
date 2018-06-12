@@ -21,7 +21,7 @@ public class Constraints {
 	//Creando usuario
 	public static final String BUTTON_UPLOAD_IMAGE = "Subir imagen";
 	public static final String JLABEL_NAME = "Nombre completo";
-	public static final String JLABEL_NICKNAME = "NickName";
+	public static final String JLABEL_NICKNAME = "Nickname";
 	public static final String JLABEL_BIRTHDATE = "Fecha de nacimiento";
 	
 	
