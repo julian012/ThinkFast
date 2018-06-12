@@ -163,6 +163,7 @@ public class JFSingUp extends JFrame implements ActionListener{
 		jBBack.setToolTipText("Volver");
 		jBBack.addActionListener(clientController);
 		jBBack.setActionCommand(Events.COME_BACK_CREATE.toString());
+		jBBack.setCursor(Constraints.HAND);
 		jBBack.setBounds(149, 0, 45, 45);
 		this.add(jBBack);
 	}

@@ -76,6 +76,14 @@ public class Client extends Thread {
 		start();
 	}
 	
+	public void closeApp() throws IOException {
+		output.writeUTF(Request.CLOSE_CONNECTION.toString());
+		connectionUp = false;
+		input.close();
+		output.close();
+		socket.close();
+	}
+	
 	@Override
 	public void run() {
 		System.out.println("La aplicacion comenzo");

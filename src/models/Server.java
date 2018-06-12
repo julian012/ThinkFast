@@ -19,13 +19,14 @@ import structure.NodeSimpleList;
 import structure.SimpleList;
 import utilities.Utilities;
 
-public class Server extends Thread implements IObsevable{
+public class Server extends Thread implements IObsevable, IObsever{
 	
 	private ArrayList<IObsever> obseverList;
 	private ServerSocket serverSocket;
 	private boolean serverUp;
 	private ArrayList<Connection> connectionList;
 	private SimpleList<User> userList;
+	private IObsevable obsevable;
 	private static final Logger LOGGER = Logger.getAnonymousLogger();
 	
 	public Server(SimpleList<User> userList, int port) throws IOException {
@@ -70,7 +71,10 @@ public class Server extends Thread implements IObsevable{
 		User user = validateEmailAndPassword(email, password);
 		if(user != null ) {
 			outputStream.writeUTF(Request.LOGING_ACCEPTED.toString());
-			connectionList.add(new Connection(socket, this, user));
+			Connection connection = new Connection(socket, this, user);
+			obsevable = connection;
+			obsevable.addObserver(this);
+			connectionList.add(connection);
 		}else {
 			outputStream.writeUTF(Request.LOGING_FAIL.toString());
 		}
@@ -109,7 +113,11 @@ public class Server extends Thread implements IObsevable{
 		userList.addNode(new NodeSimpleList<User>(user));
 		notifyChange();
 		outputStream.writeUTF(Request.USER_CREATED_CORRECTLY.toString());
-		connectionList.add(new Connection(socket, this, user));
+		Connection connection = new Connection(socket, this, user);
+		connectionList.add(connection);
+		obsevable = connection;
+		obsevable.addObserver(this);
+		connectionList.add(connection);
 	}
 	
 	public boolean validateEmailCreateUser(String email) {
@@ -173,5 +181,17 @@ public class Server extends Thread implements IObsevable{
 	@Override
 	public void removeObserver(IObsever obsever) {
 		obseverList.remove(obsever);
+	}
+
+	@Override
+	public void update() {
+		for (int i = 0; i < connectionList.size(); i++) {
+			if (!connectionList.get(i).isConnectionUp()) {
+				connectionList.remove(i);
+				LOGGER.log(Level.SEVERE, "Se desconecto un usuario");
+				break;
+			}
+		}
+		
 	}
 }
