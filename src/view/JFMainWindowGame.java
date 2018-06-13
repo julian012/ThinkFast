@@ -68,7 +68,7 @@ public class JFMainWindowGame extends JFrame implements MouseListener {
 			revalidate();
 			repaint();
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 	
@@ -108,7 +108,7 @@ public class JFMainWindowGame extends JFrame implements MouseListener {
 		
 		jPanelInfoUser = new JPanel();
 		jPanelInfoUser.setBackground(new Color(102, 102, 102, 100));
-		jPanelInfoUser.setBounds(46,57,313,378);
+		jPanelInfoUser.setBounds(46,65,313,378);
 		jPanelInfoUser.setBorder(BorderFactory.createLineBorder(Color.decode("#666666")));
 		this.add(jPanelInfoUser);
 		
@@ -163,8 +163,7 @@ public class JFMainWindowGame extends JFrame implements MouseListener {
 			powerImage = ImageIO.read(getClass().getResource("../img/Poderes.png"));
 			imageLogo = ImageIO.read(getClass().getResource("../img/Logo.png"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 	

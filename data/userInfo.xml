@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <userList>
   <user>
-    <id>5fd3f829-0f69-4140-ac5a-d81f0f31a1d6</id>
-    <name>Prueba01</name>
-    <nickname>Prueba01</nickname>
-    <email>Prueba01</email>
-    <password>Prueba01</password>
-    <pathImageUser>data/infoUsers/5fd3f829-0f69-4140-ac5a-d81f0f31a1d6/Elegante.png</pathImageUser>
-    <birthdate>11/06/2018</birthdate>
-  </user>
-  <user>
-    <id>f0b9ee78-a209-4855-83e9-dedb226594dd</id>
-    <name>Pregunta01</name>
-    <nickname>Pregunta01</nickname>
-    <email>Pregunta01</email>
-    <password>Pregunta01</password>
-    <pathImageUser>data/infoUsers/f0b9ee78-a209-4855-83e9-dedb226594dd/Adivina quien cambio de fondo.png</pathImageUser>
-    <birthdate>01/06/2018</birthdate>
+    <id>40eeb46f-e244-4445-9224-c307258338c4</id>
+    <name>prueba01</name>
+    <nickname>prueba01</nickname>
+    <email>prueba01</email>
+    <password>prueba01</password>
+    <pathImageUser>data/infoUsers/40eeb46f-e244-4445-9224-c307258338c4/Adivina quien cambio de fondo.png</pathImageUser>
+    <birthdate>10/06/2010</birthdate>
   </user>
 </userList>

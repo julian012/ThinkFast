@@ -2,10 +2,9 @@
 /connection/
 /controller/
 /models/
+/observer/
 /persistence/
 /run/
-/view/
 /structure/
 /utilities/
-/observer/
-/messageClientData/
+/view/

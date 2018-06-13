@@ -1,6 +1,5 @@
 package models;
 
-import java.awt.image.BufferedImage;
 import java.time.LocalDate;
 
 public class User {
@@ -12,14 +11,13 @@ public class User {
 	private String password;
 	private LocalDate birthDate;
 	private String pathImageUser;
-	private BufferedImage imageUser;
-	
+	private AccountInfo accountInfo;
 	
 	/**
 	 * Constructor del servidor
 	 */
 	public User(String id, String name, String nickname, String email, String password, LocalDate birthDate,
-			String pathImageUser) {
+			String pathImageUser, AccountInfo accountInfo) {
 		this.id = id;
 		this.name = name;
 		this.nickname = nickname;
@@ -27,20 +25,7 @@ public class User {
 		this.password = password;
 		this.birthDate = birthDate;
 		this.pathImageUser = pathImageUser;
-	}
-	
-	/**
-	 * Constructor del cliente
-	 */
-	public User(String id, String name, String nickname, String email, String password, LocalDate birthDate,
-			BufferedImage imageUser) {
-		this.id = id;
-		this.name = name;
-		this.nickname = nickname;
-		this.email = email;
-		this.password = password;
-		this.birthDate = birthDate;
-		this.imageUser = imageUser;
+		this.accountInfo = accountInfo;
 	}
 
 	public String getId() {
@@ -99,14 +84,11 @@ public class User {
 		this.pathImageUser = pathImageUser;
 	}
 
-	public BufferedImage getImageUser() {
-		return imageUser;
+	public AccountInfo getAccountInfo() {
+		return accountInfo;
 	}
 
-	public void setImageUser(BufferedImage imageUser) {
-		this.imageUser = imageUser;
+	public void setAccountInfo(AccountInfo accountInfo) {
+		this.accountInfo = accountInfo;
 	}
-	
-	
-
 }

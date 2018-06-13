@@ -108,8 +108,10 @@ public class Server extends Thread implements IObsevable, IObsever{
 		byte[] image = new byte[inputStream.readInt()];
 		inputStream.readFully(image);
 		String id = UUID.randomUUID().toString();
-		User user = new User(id, 
-				name, nickname, email, password, birthdate, Utilities.saveImage(image, nameImage, id));
+		AccountInfo accountInfo = new AccountInfo(0, 50, 0, 0, Utilities.getQuestionList(), new SimpleList<>(), 0, new SimpleList<>(), 0);
+		System.out.println(accountInfo.getMoney() + "dinero");
+		User user = new User(id, name, nickname, email, password, birthdate, 
+				Utilities.saveImage(image, nameImage, id), accountInfo);
 		userList.addNode(new NodeSimpleList<User>(user));
 		notifyChange();
 		outputStream.writeUTF(Request.USER_CREATED_CORRECTLY.toString());

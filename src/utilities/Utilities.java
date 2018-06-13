@@ -10,6 +10,10 @@ import java.util.Date;
 
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import models.TypeQuestion;
+import structure.NodeSimpleList;
+import structure.SimpleList;
+
 public class Utilities {
 
 	public static String localDateToString(LocalDate date){
@@ -43,5 +47,14 @@ public class Utilities {
 			e.printStackTrace();
 		}
 		return file.getPath();
+	}
+	
+	public static SimpleList<String> getQuestionList(){
+		SimpleList<String> questionList = new  SimpleList<>();
+		TypeQuestion[] list = TypeQuestion.values();
+		for (TypeQuestion typeQuestion : list) {
+			questionList.addNode(new NodeSimpleList<String>(typeQuestion.toString()));
+		}
+		return questionList;
 	}
 }

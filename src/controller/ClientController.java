@@ -202,7 +202,6 @@ public class ClientController implements ActionListener, WindowListener {
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
-		closeApp();
 	}
 
 }
