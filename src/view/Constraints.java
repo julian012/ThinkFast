@@ -33,6 +33,9 @@ public class Constraints {
 	public static final String LABEL_POWERS = "Poderes";
 	public static final String LABEL_TITLE_GAMES = "Modos de juego";
 	public static final String TOOT_TIP_TEXT_EXIT = "Salir";
+	public static final String LABEL_LEAGUE = "Liga: ";
+	public static final String LABEL_GAMES = "Partidas ganadas: ";
+	public static final String LABEL_TOTAL_GAMES = "Partidas jugadas: ";
 	public static final Font FONT_MAIN_WINDOW_TITLE = new Font("Gadugi", Font.PLAIN, 26);
 	public static final Font FONT_MAIN_WINDOW_LABELS = new Font("Gadugi", Font.PLAIN, 19);
 	public static final Font FONT_MAIN_WINDOW_LABELS_SMALL = new Font("Gadugi", Font.PLAIN, 14);

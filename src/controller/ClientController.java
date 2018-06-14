@@ -14,13 +14,15 @@ import java.util.Properties;
 
 import connection.Request;
 import models.Client;
+import observer.IObsevable;
+import observer.IObsever;
 import utilities.Utilities;
 import view.JDSystemMessage;
 import view.JFMainWindowGame;
 import view.JFSingIn;
 import view.JFSingUp;
 
-public class ClientController implements ActionListener, WindowListener {
+public class ClientController implements ActionListener, WindowListener, IObsever {
 
 	private Client client;
 	private Properties prop;
@@ -28,6 +30,7 @@ public class ClientController implements ActionListener, WindowListener {
 	private JFSingIn singIn;
 	private JFSingUp singUp;
 	private JDSystemMessage systemMessage;
+	private IObsevable obsevable;
 	private JFMainWindowGame mainWindowGame;
 
 
@@ -42,6 +45,8 @@ public class ClientController implements ActionListener, WindowListener {
 			input = new FileInputStream("config.properties");
 			prop.load(input);
 			client = new Client(prop.getProperty("host"), Integer.parseInt(prop.getProperty("port")));
+			obsevable = client;
+			obsevable.addObserver(this);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -69,7 +74,13 @@ public class ClientController implements ActionListener, WindowListener {
 		if(result.equals(Request.LOGING_ACCEPTED.toString())) {
 			client.initConnection();
 			singIn.setVisible(false);
-			mainWindowGame = new JFMainWindowGame(this);
+			try {
+				Thread.sleep(2000);
+				mainWindowGame = new JFMainWindowGame(this, client.getUser());
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}else {
 			systemMessage = new JDSystemMessage(result,singIn);
 			systemMessage.repaint();
@@ -119,8 +130,14 @@ public class ClientController implements ActionListener, WindowListener {
 	private void showMessage(String message) {
 		client.initConnection();
 		singUp.setVisible(false);
-		mainWindowGame = new JFMainWindowGame(this);
-		systemMessage = new JDSystemMessage(message,mainWindowGame);
+		try {
+			Thread.sleep(2000);
+			mainWindowGame = new JFMainWindowGame(this, client.getUser());
+			systemMessage = new JDSystemMessage(message,mainWindowGame);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void singUpResult(String result) {
@@ -191,6 +208,13 @@ public class ClientController implements ActionListener, WindowListener {
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
+	}
+
+	@Override
+	public void update() {
+//		mainWindowGame.initComponents(
+//				this
+//				, client.getUser());
 	}
 
 }

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,10 +22,12 @@ import org.jdom2.JDOMException;
 import com.sun.javafx.property.adapter.ReadOnlyPropertyDescriptor;
 
 import connection.Request;
+import observer.IObsevable;
+import observer.IObsever;
 import persistence.FileManager;
 import utilities.Utilities;
 
-public class Client extends Thread {
+public class Client extends Thread implements IObsevable {
 	
 	private Socket socket;
 	private DataInputStream input;
@@ -32,16 +35,20 @@ public class Client extends Thread {
 	public boolean connectionUp;
 	private String host;
 	private int port;
-	private String resultConnection;
-	private String nameUser;
 	private static final Logger LOGGER = Logger.getAnonymousLogger();
 	private User user;
 	private FileManager fileManager;
+	private ArrayList<IObsever> obseverList;
 	
 	public Client(String host, int port) {
+		obseverList = new ArrayList<>();
 		fileManager = new FileManager();
 		this.host = host;
 		this.port = port;
+	}
+	
+	public User getUser() {
+		return user;
 	}
 	
 	public String signIn(String email, String password) throws UnknownHostException, IOException {
@@ -110,11 +117,8 @@ public class Client extends Thread {
 			ImageIcon imageUser = new ImageIcon(image);
 			AccountInfo accountInfo = fileManager.getAccountInfoByFile(file);
 			file.delete();
-			user = new User(id,
-					, nameImage
-					, nickname, email, password, birthDate, 
-					imageUser
-					, accountInfo);
+			user = new User(id, name , nickname, email, password, birthDate, imageUser , accountInfo);
+			notifyChange();
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		} catch (JDOMException e) {
@@ -132,6 +136,12 @@ public class Client extends Thread {
 		FileOutputStream fOutputStream = new FileOutputStream(file);
 		fOutputStream.write(array);
 		fOutputStream.close();
+	}
+	
+	public void notifyChange() {
+		for (IObsever o : obseverList) {
+			o.update();
+		}
 	}
 	
 	@Override
@@ -152,5 +162,15 @@ public class Client extends Thread {
 				LOGGER.log(Level.SEVERE, e.getMessage());
 			}
 		}
+	}
+
+	@Override
+	public void addObserver(IObsever obsever) {
+		obseverList.add(obsever);
+	}
+
+	@Override
+	public void removeObserver(IObsever obsever) {
+		obseverList.remove(obsever);
 	}
 }

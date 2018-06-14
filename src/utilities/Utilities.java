@@ -10,11 +10,18 @@ import java.util.Date;
 
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import models.League;
 import models.TypeQuestion;
 import structure.NodeSimpleList;
 import structure.SimpleList;
 
 public class Utilities {
+	
+	public static final int BRONZE = 1500;
+	public static final int PLATE = 2500;
+	public static final int GOLD = 3500;
+	public static final int RUBY = 5000;
+	public static final int DIAMONT = 7000;
 
 	public static String localDateToString(LocalDate date){
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -56,5 +63,21 @@ public class Utilities {
 			questionList.addNode(new NodeSimpleList<String>(typeQuestion.toString()));
 		}
 		return questionList;
+	}
+	
+	public static String getLeague(int experience) {
+		if(experience < BRONZE) {
+			return League.NO_LEAGUE.getName();
+		}else if(BRONZE <= experience && experience < PLATE) {
+			return League.PLATE.getName();
+		}else if(PLATE <= experience && experience < GOLD) {
+			return League.PLATE.getName();
+		}else if(GOLD <= experience && experience < RUBY) {
+			return League.GOLD.getName();
+		}else if(RUBY <= experience && experience < GOLD) {
+			return League.RUBY.getName();
+		}else {
+			return League.DIAMON.getName();
+		}
 	}
 }

@@ -19,6 +19,8 @@ import javax.swing.UIManager;
 
 import controller.ClientController;
 import controller.Events;
+import models.User;
+import utilities.Utilities;
 
 public class JFMainWindowGame extends JFrame implements MouseListener {
 
@@ -41,14 +43,20 @@ public class JFMainWindowGame extends JFrame implements MouseListener {
 	private ImageIcon choiceChallenge;
 	private JPanel jPanelInfoUser;
 	private JLabel jTitle;
-
+	private JLabel jLLeague;
+	private JLabel jLTotalGames;
+	private JLabel jLGames;
+	private JButton jBGoals;
+	private JButton jBQuestions;
+	private ImageIcon userImage;
 	private ImageIcon exitedImage;
-
 	private ImageIcon enteredImage;
+	private ImageIcon goalsImage;
+	private ImageIcon questionImage;
 	
-	public JFMainWindowGame(ClientController clientControllers) {
+	public JFMainWindowGame(ClientController clientControllers, User user) {
 		setUIManager();
-		initImages();
+		initImages(user);
 		setIconImage(imageLogo);
 		setTitle(Constraints.TITLE);
 		setSize(850, 475);
@@ -57,7 +65,7 @@ public class JFMainWindowGame extends JFrame implements MouseListener {
 		setLocationRelativeTo(null);
 		getContentPane().setBackground(Constraints.COLOR_DARK_GREY);
 		setLayout(null);
-		initComponents(clientControllers);
+		initComponents(clientControllers, user);
 		setVisible(true);
 		timeToLoad();
 	}
@@ -72,13 +80,13 @@ public class JFMainWindowGame extends JFrame implements MouseListener {
 		}
 	}
 	
-	private void initComponents(ClientController clientController) {
-		xpText = new JLabel(Constraints.LABEL_XP  + ": 145000");
+	public void initComponents(ClientController clientController, User user) {
+		xpText = new JLabel(Constraints.LABEL_XP  + ": " + user.getAccountInfo().getExperience());
 		xpText.setFont(Constraints.FONT_MAIN_WINDOW_LABELS_SMALL);
 		xpText.setBounds(57, 0, 160, 50);
 		this.add(xpText);
 		
-		moneyText = new JLabel(Constraints.LABEL_MONEY  + ": 145000");
+		moneyText = new JLabel(Constraints.LABEL_MONEY  + ": " + user.getAccountInfo().getMoney());
 		moneyText.setFont(Constraints.FONT_MAIN_WINDOW_LABELS_SMALL);
 		moneyText.setBounds(270, 0, 160, 50);
 		this.add(moneyText);
@@ -106,17 +114,50 @@ public class JFMainWindowGame extends JFrame implements MouseListener {
 		jBExit.setBounds(785, 0, 55, 55);
 		this.add(jBExit);
 		
-		jPanelInfoUser = new JPanel();
-		jPanelInfoUser.setBackground(new Color(102, 102, 102, 100));
-		jPanelInfoUser.setBounds(46,65,313,378);
-		jPanelInfoUser.setBorder(BorderFactory.createLineBorder(Color.decode("#666666")));
-		this.add(jPanelInfoUser);
+		jLLeague = new JLabel(Constraints.LABEL_LEAGUE + Utilities.getLeague(user.getAccountInfo().getExperience()));
+		jLLeague.setBounds(60,218,200,25);
+		this.add(jLLeague);
 		
+		jLTotalGames = new JLabel(Constraints.LABEL_TOTAL_GAMES + user.getAccountInfo().getTotalGames());
+		jLTotalGames.setBounds(60,243,200,25);
+		this.add(jLTotalGames);
+		
+		jLGames = new JLabel(Constraints.LABEL_GAMES + user.getAccountInfo().getGames());
+		jLGames.setBounds(60,268,200,25);
+		this.add(jLGames);
+		
+		jBGoals = new JButton(new ImageIcon(goalsImage.getImage().getScaledInstance(251, 57, Image.SCALE_SMOOTH)));
+		jBGoals.setOpaque(false);
+		jBGoals.setContentAreaFilled(false);
+		jBGoals.setBorderPainted(false);
+		//jBGoals.setToolTipText(Constraints.TOOT_TIP_TEXT_EXIT);
+		jBGoals.setCursor(Constraints.HAND);
+		//jBGoals.addActionListener(clientController);
+		//jBGoals.setActionCommand(Events.CLOSE_APP.toString());
+		jBGoals.setBounds(78, 305, 251, 57);
+		this.add(jBGoals);
+		
+		jBQuestions = new JButton(new ImageIcon(questionImage.getImage().getScaledInstance(251, 57, Image.SCALE_SMOOTH)));
+		jBQuestions.setOpaque(false);
+		jBQuestions.setContentAreaFilled(false);
+		jBQuestions.setBorderPainted(false);
+		//jBQuestions.setToolTipText(Constraints.TOOT_TIP_TEXT_EXIT);
+		jBQuestions.setCursor(Constraints.HAND);
+		//jBQuestions.addActionListener(clientController);
+		//jBQuestions.setActionCommand(Events.CLOSE_APP.toString());
+		jBQuestions.setBounds(78, 375, 251, 57);
+		this.add(jBQuestions);
 		
 		showGameModes(clientController);
 	}
 	
 	public void showGameModes(ClientController clientController) {
+		
+		jPanelInfoUser = new JPanel();
+		jPanelInfoUser.setBackground(new Color(102, 102, 102, 100));
+		jPanelInfoUser.setBounds(46,65,313,378);
+		jPanelInfoUser.setBorder(BorderFactory.createLineBorder(Color.decode("#666666")));
+		this.add(jPanelInfoUser);
 		
 		jTitle = new JLabel(Constraints.LABEL_TITLE_GAMES, JLabel.CENTER);
 		jTitle.setFont(Constraints.FONT_MAIN_WINDOW_TITLE);
@@ -128,7 +169,7 @@ public class JFMainWindowGame extends JFrame implements MouseListener {
 		jBGameOnevsOne.setOpaque(false);
 		jBGameOnevsOne.setContentAreaFilled(false);
 		jBGameOnevsOne.setBorderPainted(false);
-		jBGameOnevsOne.setToolTipText(Constraints.TOOT_TIP_TEXT_EXIT);
+		//jBGameOnevsOne.setToolTipText(Constraints.TOOT_TIP_TEXT_EXIT);
 		jBGameOnevsOne.setCursor(Constraints.HAND);
 		//jBExit.addActionListener(clientController);
 		//jBExit.setActionCommand(Events.CLOSE_APP.toString());
@@ -140,7 +181,7 @@ public class JFMainWindowGame extends JFrame implements MouseListener {
 		jBChoiceChallenge.setOpaque(false);
 		jBChoiceChallenge.setContentAreaFilled(false);
 		jBChoiceChallenge.setBorderPainted(false);
-		jBChoiceChallenge.setToolTipText(Constraints.TOOT_TIP_TEXT_EXIT);
+		//jBChoiceChallenge.setToolTipText(Constraints.TOOT_TIP_TEXT_EXIT);
 		jBChoiceChallenge.setCursor(Constraints.HAND);
 		//jBExit.addActionListener(clientController);
 		//jBExit.setActionCommand(Events.CLOSE_APP.toString());
@@ -153,10 +194,13 @@ public class JFMainWindowGame extends JFrame implements MouseListener {
 		UIManager.put("Label.font", Constraints.FONT_MAIN_WINDOW_LABELS);
 	}
 	
-	public void initImages() {
+	public void initImages(User user) {
 		exitedImage = new ImageIcon(getClass().getResource("../img/Cerrar negrito.png"));
 		enteredImage = new ImageIcon(getClass().getResource("../img/Cerrar.png"));
 		try {
+			goalsImage = new ImageIcon(getClass().getResource("../img/Lista de logros.png"));
+			questionImage = new ImageIcon(getClass().getResource("../img/Categoria de preguntas.png"));
+			userImage = user.getImageUser();
 			xpImage = ImageIO.read(getClass().getResource("../img/Experiencia NEGRITO.png"));
 			moneyImage = ImageIO.read(getClass().getResource("../img/Dinero 3.png"));
 			friendsImage = ImageIO.read(getClass().getResource("../img/Mundo 3.png"));
@@ -174,6 +218,8 @@ public class JFMainWindowGame extends JFrame implements MouseListener {
 		g.drawImage(moneyImage, 190, 34, 73, 55, null);
 		g.drawImage(friendsImage, 410, 33, 57, 57, null);
 		g.drawImage(powerImage, 585, 33, 57, 57, null);
+		g.drawImage(userImage.getImage(),128,110 ,143, 143, null);
+	
 	}
 
 	@Override
