@@ -82,17 +82,16 @@ public class FileManager {
 		}
 		return userList;
 	}
-
-	public AccountInfo readAccountInfo(String id) throws JDOMException, IOException {
+	
+	public AccountInfo getAccountInfoByFile(File archive) throws JDOMException, IOException {
 		SAXBuilder builder = new SAXBuilder();
-		File archive = new File("data/infoUsers/" +  id +"/accountInfo.xml");
 		AccountInfo accountInfo;
 		Document document = (Document) builder.build(archive);
 		Element rootNode = document.getRootElement();
 		int experience = Integer.parseInt(rootNode.getChildText(EXPERIENCE));
 		int money = Integer.parseInt(rootNode.getChildText(MONEY));
-		int games = Integer.parseInt(GAMES);
-		int totalGames = Integer.parseInt(TOTAL_GAMES);
+		int games = Integer.parseInt(rootNode.getChildText(GAMES));
+		int totalGames = Integer.parseInt(rootNode.getChildText(TOTAL_GAMES));
 		SimpleList<String> questionList = new SimpleList<>();
 		Element questionListUser = rootNode.getChild(QUESTION_LIST);
 		List<Element> typeList = questionListUser.getChildren(QUESTION);
@@ -125,6 +124,11 @@ public class FileManager {
 		int onFire = Integer.parseInt(rootNode.getChildText(ON_FIRE));
 		accountInfo = new AccountInfo(experience, money, games, totalGames, questionList, powerList, usedPowers, listIdFriends, onFire);
 		return accountInfo;
+	}
+
+	public AccountInfo readAccountInfo(String id) throws JDOMException, IOException {
+		File archive = new File("data/infoUsers/" +  id +"/accountInfo.xml");
+		return getAccountInfoByFile(archive);
 	}
 
 

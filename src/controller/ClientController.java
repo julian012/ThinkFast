@@ -1,27 +1,16 @@
 package controller;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.UnknownHostException;
-import java.text.AttributedCharacterIterator;
 import java.util.Date;
 import java.util.Properties;
-
-import javax.swing.JOptionPane;
 
 import connection.Request;
 import models.Client;
@@ -82,7 +71,8 @@ public class ClientController implements ActionListener, WindowListener {
 			singIn.setVisible(false);
 			mainWindowGame = new JFMainWindowGame(this);
 		}else {
-			new JDSystemMessage(result);
+			systemMessage = new JDSystemMessage(result,singIn);
+			systemMessage.repaint();
 		}
 	}
 
@@ -127,10 +117,10 @@ public class ClientController implements ActionListener, WindowListener {
 	}
 
 	private void showMessage(String message) {
-		systemMessage = new JDSystemMessage(message);
 		client.initConnection();
 		singUp.setVisible(false);
 		mainWindowGame = new JFMainWindowGame(this);
+		systemMessage = new JDSystemMessage(message,mainWindowGame);
 	}
 
 	private void singUpResult(String result) {
@@ -139,7 +129,7 @@ public class ClientController implements ActionListener, WindowListener {
 			createAccount();
 			break;
 		default:
-			systemMessage = new JDSystemMessage(result);
+			systemMessage = new JDSystemMessage(result, singUp);
 			break;
 		}
 	}
@@ -149,8 +139,7 @@ public class ClientController implements ActionListener, WindowListener {
 			client.closeApp();
 			System.exit(0);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 

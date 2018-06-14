@@ -2,6 +2,8 @@ package models;
 
 import java.time.LocalDate;
 
+import javax.swing.ImageIcon;
+
 public class User {
 	
 	private String id;
@@ -11,6 +13,7 @@ public class User {
 	private String password;
 	private LocalDate birthDate;
 	private String pathImageUser;
+	private ImageIcon imageUser;
 	private AccountInfo accountInfo;
 	
 	/**
@@ -25,6 +28,22 @@ public class User {
 		this.password = password;
 		this.birthDate = birthDate;
 		this.pathImageUser = pathImageUser;
+		this.accountInfo = accountInfo;
+	}
+	
+	/**
+	 * Constructor del cliente
+	 * @return
+	 */
+	public User(String id, String name, String nickname, String email, String password, LocalDate birthDate,
+			ImageIcon imageUser, AccountInfo accountInfo) {
+		this.id = id;
+		this.name = name;
+		this.nickname = nickname;
+		this.email = email;
+		this.password = password;
+		this.birthDate = birthDate;
+		this.imageUser = imageUser;
 		this.accountInfo = accountInfo;
 	}
 
@@ -91,4 +110,14 @@ public class User {
 	public void setAccountInfo(AccountInfo accountInfo) {
 		this.accountInfo = accountInfo;
 	}
+
+	public ImageIcon getImageUser() {
+		return imageUser;
+	}
+
+	public void setImageUser(ImageIcon imageUser) {
+		this.imageUser = imageUser;
+	}
+	
+	
 }

@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,15 +11,19 @@ import java.util.Properties;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
+import controller.Events;
 
 
-public class JDSystemMessage extends JFrame {
+
+public class JDSystemMessage extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JLabel jLTitle;
@@ -26,11 +31,13 @@ public class JDSystemMessage extends JFrame {
 	private JButton jBExit;
 	private InputStream input;
 	private Properties prop;
-	private BufferedImage image;
+	private ImageIcon image;
 	private String valueTile;
 	private String valueMessage;
+	private JButton imageMessage;
 	
-	public JDSystemMessage(String request) {
+	public JDSystemMessage(String request, JFrame frame) {
+		super(frame, true);
 		loadProperties(request);
 		setSize(446,225);
 		setLocationRelativeTo(null);
@@ -38,8 +45,6 @@ public class JDSystemMessage extends JFrame {
 		setResizable(false);
 		setLayout(null);
 		initComponents();
-		setIconImage(image);
-		setVisible(true);
 		timeToLoad();
 	}
 	
@@ -48,6 +53,7 @@ public class JDSystemMessage extends JFrame {
 			Thread.sleep(1000);
 			revalidate();
 			repaint();
+			setVisible(true);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -58,7 +64,7 @@ public class JDSystemMessage extends JFrame {
 		try {
 			input = new FileInputStream("data/messageClientData/" +  request + ".properties");
 			prop.load(input);
-			image = ImageIO.read(getClass().getResource("../img/" + prop.getProperty("nameImage")));
+			image = new ImageIcon(getClass().getResource("../img/" + prop.getProperty("nameImage")));
 			configSystemUI();
 			valueTile = prop.getProperty("title");
 			valueMessage = prop.getProperty("message");
@@ -95,11 +101,12 @@ public class JDSystemMessage extends JFrame {
 		jBExit.addActionListener(e -> this.setVisible(false));
 		jBExit.setBounds(193, 136, 231, 29);
 		this.add(jBExit);
-	}
-	
-	@Override
-	public void paint (Graphics g) {
-		super.paint(g);
-		g.drawImage(image, 0, 30, 193, 193, null);
+		
+		imageMessage = new JButton(new ImageIcon(image.getImage().getScaledInstance(193, 193,Image.SCALE_SMOOTH)));
+		imageMessage.setOpaque(false);
+		imageMessage.setContentAreaFilled(false);
+		imageMessage.setBorderPainted(false);
+		imageMessage.setBounds(0, 0, 193, 193);
+		this.add(imageMessage);
 	}
 }

@@ -1,17 +1,27 @@
 package connection;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.imageio.ImageIO;
+
+import models.AccountInfo;
 import models.Server;
 import models.User;
 import observer.IObsevable;
 import observer.IObsever;
+import persistence.FileManager;
+import utilities.Utilities;
 
 public class Connection extends Thread implements IObsevable{
 
@@ -23,7 +33,7 @@ public class Connection extends Thread implements IObsevable{
 	private User user;
 	private ArrayList<IObsever> obseverList;
 	private static final Logger LOGGER = Logger.getAnonymousLogger();
-	
+
 	public Connection(Socket socket, Server server, User user) throws IOException {
 		obseverList = new ArrayList<>();
 		this.socket = socket;
@@ -35,11 +45,11 @@ public class Connection extends Thread implements IObsevable{
 		output.writeUTF(Request.START_PROGRAM.toString());
 		start();
 	}
-	
+
 	public boolean isConnectionUp() {
 		return connectionUp;
 	}
-	
+
 	public void closeConnection() {
 		connectionUp = false;
 		try {
@@ -56,10 +66,49 @@ public class Connection extends Thread implements IObsevable{
 			o.update();
 		}
 	}
-	
+
+	public void sendInfoUser() {
+		try {
+			output.writeUTF(Request.SEND_INFO_USER_AFTER_LOGIN.toString());
+			output.writeUTF(user.getId());
+			output.writeUTF(user.getName());
+			output.writeUTF(user.getNickname());
+			output.writeUTF(user.getEmail());
+			output.writeUTF(user.getPassword());
+			output.writeUTF(Utilities.localDateToString(user.getBirthDate()));
+			//Enviar imagen
+			File image = new File(user.getPathImageUser());
+			BufferedImage buffer = ImageIO.read(image);
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			ImageIO.write(buffer, image.getName().substring(image.getName().lastIndexOf(".") + 1), outputStream);
+			byte[] imageData = outputStream.toByteArray();
+			output.writeUTF(image.getName());
+			output.writeInt(imageData.length);
+			output.write(imageData);
+			//Enviar xml informacion
+			File file = new File("data/infoUsers/" + user.getId() + "/accountInfo.xml");
+			byte[] array = new byte[(int) file.length()];
+			readFileBytes(file, array);
+			output.writeUTF(file.getName());
+			output.writeInt(array.length);
+			output.write(array);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	private void readFileBytes(File file, byte[] array) throws IOException {
+		FileInputStream fInputStream = new FileInputStream(file);
+		fInputStream.read(array);
+		fInputStream.close();
+	}
+
 	@Override
 	public void run() {
 		System.out.println("La aplicacion comenzo");
+		sendInfoUser();
 		while(connectionUp) {
 			try {
 				String option = input.readUTF();

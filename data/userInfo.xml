@@ -9,4 +9,13 @@
     <pathImageUser>data/infoUsers/40eeb46f-e244-4445-9224-c307258338c4/Adivina quien cambio de fondo.png</pathImageUser>
     <birthdate>10/06/2010</birthdate>
   </user>
+  <user>
+    <id>44ccfc57-3617-4f50-871d-45e33d1cc0d4</id>
+    <name>Julian Camilo Serna</name>
+    <nickname>diozgor</nickname>
+    <email>julicamnet@gmail.com</email>
+    <password>diozgor</password>
+    <pathImageUser>data/infoUsers/44ccfc57-3617-4f50-871d-45e33d1cc0d4/Villano.png</pathImageUser>
+    <birthdate>12/01/1996</birthdate>
+  </user>
 </userList>
