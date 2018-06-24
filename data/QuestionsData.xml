@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<questions>
+	<question>
+		<topic>LITERATURE</topic>
+		<message>En la obra de Shakespeare Hamlet era principe de: </message>
+		<option>Alemania</option>
+		<option>Dinamarca</option>
+		<option>Inglaterra</option>
+		<option>Francia</option>
+		<answer>Dinamarca</answer>
+	</question>
+	<question>
+		<topic>ENTERTAIMENT</topic>
+		<message>En el clásico de la comedia de enredo de la BBC "Are you being served?", ¿Quién interpretó el papel del Sr. Humphries?: </message>
+		<option>Frank Thornton</option>
+		<option>John Inman</option>
+		<option>Nicholas Smith</option>
+		<option>Arthur Brough</option>
+		<answer>John Inman</answer>
+	</question>
+	<question>
+		<topic>SPORTS</topic>
+		<message>Qué jugador de tenis tiene el record de más semanas en total en el número 1: </message>
+		<option>Pete Sampras</option>
+		<option>Roger Federer</option>
+		<option>Lleyton Hewitt</option>
+		<option>Andre Agassi</option>
+		<answer>Roger Federer</answer>
+	</question>
+		<question>
+		<topic>MOVIES</topic>
+		<message>¿Qué actor interpretó el mayor número de peliculas de James Bond?:</message>
+		<option>Bruce Willis</option>
+		<option>Roger Moore</option>
+		<option>Pierce Brosnan</option>
+		<option>Sean Connery</option>
+		<answer>Roger Moore</answer>
+	</question>
+	<question>
+		<topic>GEOGRAPHY</topic>
+		<message>¿El agua de qué oceano es la más fria?: </message>
+		<option>Indio</option>
+		<option>Ártico</option>
+		<option>Pacífico</option>
+		<option>Atlántico</option>
+		<answer>Ártico</answer>
+	</question>
+	<question>
+		<topic>HISTORY</topic>
+		<message>¿Quién dijo, "La tragedia de la vida es que nos hacemos viejos demasiado pronto y sabios demasiado tarde"?: </message>
+		<option>Samuel Beckett</option>
+		<option>Bertrand Russell</option>
+		<option>Benjamin Franklin</option>
+		<option>Oscar Wilde</option>
+		<answer>Benjamin Franklin</answer>
+	</question>
+	<question>
+		<topic>SPORTS</topic>
+		<message>¿Cuál era el nombre del equipo de béisbol de Sam Malone en la serie de TV "Cheers"?: </message>
+		<option>White Sox</option>
+		<option>Cerveceros</option>
+		<option>Rojos</option>
+		<option>Medias Rojas</option>
+		<answer>Medias Rojas</answer>
+	</question>
+	<question>
+		<topic>GEOGRAPHY</topic>
+		<message>Ginebra, la sede de las Naciones Unidas, está ubicada ¿en qué país?: </message>
+		<option>Reino Unido</option>
+		<option>España</option>
+		<option>Italia</option>
+		<option>Suiza</option>
+		<answer>Suiza</answer>
+	</question>
+	<question>
+		<topic>SCIENCE</topic>
+		<message>¿Cuál de estos elementos tiene la más alta densidad?: </message>
+		<option>Pb</option>
+		<option>Np</option>
+		<option>W</option>
+		<option>Os</option>
+		<answer>Os</answer>
+	</question>
+	<question>
+		<topic>HISTORY</topic>
+		<message>¿Quién es el único presidente de EE.UU que ha ganado un premio Pulitzer?: </message>
+		<option>Jimmy Carter</option>
+		<option>Ronald Reagan</option>
+		<option>John F.Kennedy</option>
+		<option>Bill Clinton</option>
+		<answer>John F.Kennedy</answer>
+	</question>
+	<question>
+		<topic>SCIENCE</topic>
+		<message>¿Qué constante es referida como "El reloj universal"?: </message>
+		<option>Número de Avogadro</option>
+		<option>Constante de Planck</option>
+		<option>Velocidad de la luz</option>
+		<option>Constante gravitacional</option>
+		<answer>Velocidad de la luz</answer>
+	</question>
+	<question>
+		<topic>ART</topic>
+		<message>¿Cúal es el verdadero nombre de la cantante Cher?: </message>
+		<option>Irene Escalera</option>
+		<option>Cherilyn Sarkisian</option>
+		<option>Stefani Germanotta</option>
+		<option>Sonia Liebermann</option>
+		<answer>Cherilyn Sarkisian</answer>
+	</question>
+		<question>
+		<topic>MOVIES</topic>
+		<message>¿Quién interpretó el papel principal en "Duro de Matar"?: </message>
+		<option>Bruce Willis</option>
+		<option>Russell Crowe</option>
+		<option>Tom Hanks</option>
+		<option>Mel Gibson</option>
+		<answer>Bruce Willis</answer>
+	</question>
+	<question>
+		<topic>SPORTS</topic>
+		<message>¿En qué deporte jugó profesionalmente Carmelo Anthony?: </message>
+		<option>Baloncesto</option>
+		<option>Fútbol Americano</option>
+		<option>Hockey sobre hielo</option>
+		<option>Béisbol</option>
+		<answer>Baloncesto</answer>
+	</question>
+	<question>
+		<topic>LITERATURE</topic>
+		<message>¿Cuál es el nombre del gato de Gepetto en "Pinocho"?: </message>
+		<option>Capistrano</option>
+		<option>Botas</option>
+		<option>Figaro</option>
+		<option>Silvestre</option>
+		<answer>Figaro</answer>
+	</question>
+	<question>
+		<topic>MOVIES</topic>
+		<message>¿Quién interpretó el papel pricipal en "Reservior Dogs"?: </message>
+		<option>Harvey Keitel</option>
+		<option>Ralph Fiennes</option>
+		<option>Jack Nicholson</option>
+		<option>Nigel Hawthorne</option>
+		<answer>Harvey Keitel</answer>
+	</question>
+	<question>
+		<topic>SCIENCE</topic>
+		<message>El corazón humano es: </message>
+		<option>Músculo</option>
+		<option>Cartílago</option>
+		<option>Hueso</option>
+		<option>Tendón</option>
+		<answer>Músculo</answer>
+	</question>
+	<question>
+		<topic>GEOGRAPHY</topic>
+		<message>¿Cuántas provincias tiene Canadá?: </message>
+		<option>15</option>
+		<option>10</option>
+		<option>6</option>
+		<option>13</option>
+		<answer>10</answer>
+	</question>
+	<question>
+		<topic>ART</topic>
+		<message>¿Qué psiquitra austriaco compuso "La interpretación de los sueños en 1900"?: </message>
+		<option>Erik Erikson</option>
+		<option>Carl Jung</option>
+		<option>Max Schur</option>
+		<option>Sigmund Freud</option>
+		<answer>Sigmund Freud</answer>
+	</question>
+	<question>
+		<topic>ART</topic>
+		<message>¿Quién fue el director de la Bauhaus desde 1930 hasta 1933?: </message>
+		<option>Le Corbuiser</option>
+		<option>Hans Meyer</option>
+		<option>Miles Van Der Rohe</option>
+		<option>Walter Deroming</option>
+		<answer>Miles Van Der Rohe</answer>
+	</question>
+	<question>
+		<topic>ART</topic>
+		<message>¿Quién es el artista que pintó "La Danza"?: </message>
+		<option>Paul Cezanne</option>
+		<option>Claude Monet</option>
+		<option>Edouard Manet</option>
+		<option>Henri Matisse</option>
+		<answer>Henri Matisse</answer>
+	</question>
+	<question>
+		<topic>MOVIES</topic>
+		<message>¿Quién interpreta a Barry Allen(Flash) en la serie de TV de 2014?: </message>
+		<option>Chris Evans</option>
+		<option>Grant Gustin</option>
+		<option>Brandon Routh</option>
+		<option>Stephen Amell</option>
+		<answer>Grant Gustin</answer>
+	</question>
+	<question>
+		<topic>MOVIES</topic>
+		<message>¿Quién interpreta a Barry Allen(Flash) en la serie de TV de 2014?: </message>
+		<option>Chris Evans</option>
+		<option>Grant Gustin</option>
+		<option>Brandon Routh</option>
+		<option>Stephen Amell</option>
+		<answer>Grant Gustin</answer>
+	</question>
+	<question>
+		<topic>HISTORY</topic>
+		<message>¿Cuál era la moneda oficial de España antes de usar el Euro?: </message>
+		<option>Franco</option>
+		<option>Peso</option>
+		<option>Peseta</option>
+		<option>Sol</option>
+		<answer>Peseta</answer>
+	</question>
+	<question>
+		<topic>MOVIES</topic>
+		<message>¿Dónde está España?: </message>
+		<option>América</option>
+		<option>África</option>
+		<option>Asia</option>
+		<option>Europa</option>
+		<answer>Europa</answer>
+	</question>
+	<question>
+		<topic>SCIENCE</topic>
+		<message>¿En qué especie animal el macho lleva la cría?: </message>
+		<option>Ballena Azul</option>
+		<option>Caballito de Mar</option>
+		<option>Percebe</option>
+		<option>Esponja de Mar</option>
+		<answer>Caballito de Mar</answer>
+	</question>
+	<question>
+		<topic>GEOGRAPHY</topic>
+		<message>¿Qué río fluye a través de la ciudad de Melbourne?: </message>
+		<option>Lillydale</option>
+		<option>Yarra</option>
+		<option>Torrens</option>
+		<option>Yorredale</option>
+		<answer>Yarra</answer>
+	</question>
+	<question>
+		<topic>GEOGRAPHY</topic>
+		<message>El orgullo de arrogancia también se conoce como: </message>
+		<option>Egocentrismo</option>
+		<option>Egomania</option>
+		<option>Arrogancia</option>
+		<option>Megalomania</option>
+		<answer>Arrogancia</answer>
+	</question>
+	<question>
+		<topic>MUSIC</topic>
+		<message>¿Cuál es el verdaderon nombre del famoso vocalista de la banda "Queen"?: </message>
+		<option>Freddy Mercury</option>
+		<option>Johan McCarthy</option>
+	<option>Paul McCartney</option>
+	<option>Farrokh Bulsara</option>
+	<answer>Farrokh Bulsara</answer>
+	</question>
+		<question>
+		<topic>GEOGRAPHY</topic>
+		<message>¿Qué ciudad es conocida como la capital del vidrio del mundo?: </message>
+		<option>Jacksonville</option>
+		<option>Boston</option>
+		<option>Denver</option>
+		<option>Toledo</option>
+		<answer>Toledo</answer>
+	</question>
+		<question>
+		<topic>HISTORY</topic>
+		<message>¿Quién fue el fundador del movimiento Scout a nivel mundial?: </message>
+		<option>Robert Baden Powell</option>
+		<option>Ruyard Kipling</option>
+		<option>Inoldo Castañeda</option>
+		<option>Ramon Ocando Pérez</option>
+		<answer>Robert Baden Powell</answer>
+	</question>
+	<question>
+		<topic>MUSIC</topic>
+		<message>¿Quién canta "Let it Be"?: </message>
+		<option>The Beatles</option>
+		<option>The Rolling Stones</option>
+		<option>Fleetwood Mac</option>
+		<option>Simon and Garfunkel</option>
+		<answer>The Beatles</answer>
+	</question>
+	<question>
+		<topic>HISTORY</topic>
+		<message>¿Julio César fue asesinado en el año?: </message>
+		<option>84 a.c</option>
+		<option>84 d.c</option>
+		<option>44 a.c</option>
+		<option>44 d.c</option>
+		<answer>44 a.c</answer>
+	</question>
+	<question>
+		<topic>SCIENCE</topic>
+		<message>¿Qué planeta además de Saturno, tiene anillos?: </message>
+		<option>Venus</option>
+		<option>Tierra</option>
+		<option>Urano</option>
+		<option>Marte</option>
+		<answer>Urano</answer>
+	</question>
+	<question>
+		<topic>HISTORY</topic>
+		<message>El Sunnismo es una rama del: </message>
+		<option>Judaismo</option>
+		<option>Cristianismo</option>
+		<option>Islam</option>
+		<option>Budaismo</option>
+		<answer>Islam</answer>
+	</question>
+	<question>
+		<topic>HISTORY</topic>
+		<message>¿Quién era el lider de la Confederación durante la Guerra Civil Norteamericana?: </message>
+		<option>Robert E.Lee</option>
+		<option>Abraham Lincoln</option>
+		<option>David Marshall</option>
+		<option>Jefferson Davis</option>
+		<answer>Jefferson Davis</answer>
+	</question>
+		<question>
+		<topic>SCIENCE</topic>
+		<message>¿Cómo se llama una persona especializada en el estudio de las plantas?: </message>
+		<option>Sismólogo</option>
+		<option>Sismógrafo</option>
+		<option>Dispersión</option>
+		<option>Botánico</option>
+		<answer>Botánico</answer>
+	</question>
+	<question>
+		<topic>HISTORY</topic>
+		<message>¿Cuánto duró la guerra de los 100 años?: </message>
+		<option>116 años</option>
+		<option>88 años</option>
+		<option>97 años</option>
+		<option>100 años</option>
+		<answer>116 años</answer>
+	</question>
+	<question>
+		<topic>MUSIC</topic>
+		<message>¿Cuál es el titulo del primer álbum de AC/DC?: </message>
+		<option>Let There Be Rock</option>
+		<option>The Razors Edge</option>
+		<option>High Voltage</option>
+		<option>Who Made Who</option>
+		<answer>High Voltage</answer>
+	</question>
+	<question>
+		<topic>GEOGRAPHY</topic>
+		<message>¿Dónde puedes encontrar la Ópera de Sidney?: </message>
+		<option>Australia</option>
+		<option>Washington D.C</option>
+		<option>Alaska</option>
+		<option>Londres</option>
+		<answer>Australia</answer>
+	</question>
+	<question>
+		<topic>ART</topic>
+		<message>¿Aproximadamente cuántas pinturas creó Vincent Van Gogh?: </message>
+		<option>2</option>
+		<option>800</option>
+		<option>20.000</option>
+		<option>10</option>
+		<answer >800</answer>
+	</question>
+	<question>
+		<topic>SCIENCE</topic>
+		<message>¿Cuál es el símbolo químico del Cobre?: </message>
+		<option>Co</option>
+		<option>Cb</option>
+		<option>Ca</option>
+		<option>Cu</option>
+		<answer>Cu</answer>
+	</question>
+	<question>
+		<topic>HISTORY</topic>
+		<message>¿En qué estado de EE.UU nació Abraham Lincoln?: </message>
+		<option>Pensilvania</option>
+		<option>Lousiana</option>
+		<option>Kentucky</option>
+		<option>Arkansas</option>
+		<answer>Kentucky</answer>
+	</question>
+	<question>
+		<topic>HISTORY</topic>
+		<message>¿Qué presidente de EE.UU no vivió nunca en la casa blanca?: </message>
+		<option>John F.Kennedy</option>
+		<option>George Washington</option>
+		<option>William McKinley</option>
+		<option>Theodore Roosevelt</option>
+		<answer>George Washington</answer>
+	</question>
+	<question>
+		<topic>HISTORY</topic>
+		<message>¿En qué país se origina la cerveza Carlsberg?: </message>
+		<option>Escocia</option>
+		<option>Inglaterra</option>
+		<option>Dinamarca</option>
+		<option>Australia</option>
+		<answer>Dinamarca</answer>
+	</question>
+	<question>
+		<topic>SPORTS</topic>
+		<message>Complete el nombre del equipo de la NBA "______ Heat"?: </message>
+		<option>Miami</option>
+		<option>New York</option>
+		<option>Los Angeles</option>
+		<option>Detroit</option>
+		<answer>Miami</answer>
+	</question>
+	<question>
+		<topic>ENTERTAIMENT</topic>
+		<message>Trey Parker y Matt Stone son los creadores de este famoso programa de TV: </message>
+		<option>Family Guy</option>
+		<option>South Park</option>
+		<option>American Dad</option>
+		<option>Los Simpons</option>
+		<answer>South Park</answer>
+	</question>
+	<question>
+		<topic>HISTORY</topic>
+		<message>¿En qué isla murió el corresponsal Ernie Pyle durante la Segunda Guerra Mundial?:</message>
+		<option>Okinawa</option>
+		<option>Saipan</option>
+		<option>Iwo Jima</option>
+		<option>Ie Shima</option>
+		<answer>Ie Shima</answer>
+	</question>
+		<question>
+		<topic>GEOGRAPHY</topic>
+		<message>¿Cuál es la capital de Venezuela?:</message>
+		<option>Caracas</option>
+		<option>Valencia</option>
+		<option>Lima</option>
+		<option>Maracaibo</option>
+		<answer>Caracas</answer>
+	</question>
+	<question>
+		<topic>ART</topic>
+		<message>¿Quién escribió el libro "Camelot" en 1953?:</message>
+		<option>Wallace Stegner</option>
+		<option>Booth Tarkington</option>
+		<option>John O'Hara</option>
+		<option>T.H White</option>
+		<answer>T.H White</answer>
+	</question>
+	<question>
+		<topic>GEOGRAPHY</topic>
+		<message>¿Dónde es más probable encontrar una góndola?:</message>
+		<option>Londres, Inglaterra</option>
+		<option>Paris, Francia</option>
+		<option>Madrid, España</option>
+		<option>Venecia, Italia</option>
+		<answer>Venecia, Italia</answer>
+	</question>
+	<question>
+		<topic>ENTERTAIMENT</topic>
+		<message>¿Quién interpretó al teniente Theo Kojak en la serie de TV Kojak?:</message>
+		<option>Peter Faik</option>
+		<option>Telly Savalas</option>
+		<option>Jack Klugman</option>
+		<option>Richard Thomas</option>
+		<answer>Telly Savalas</answer>
+	</question>
+	<question>
+		<topic>LITERATURE</topic>
+		<message>En "Hamlet", ¿cuál era el nombre de la persona cuyo cráneo descubrió Hamlet?:</message>
+		<option>Jester</option>
+		<option>Youngblood</option>
+		<option>Hyacinth</option>
+		<option>Yorick</option>
+		<answer>Yorick</answer>
+	</question>
+	<question>
+		<topic>LITERATURE</topic>
+		<message>¿Quién escribió la obra: "El arte de la controversia"?:</message>
+		<option>Theodor Adorno</option>
+		<option>Hans Cornelius</option>
+		<option>Arthur Schopenhauer</option>
+		<option>Karl Popper</option>
+		<answer>Arthur Schopenhauer</answer>
+	</question>
+	<question>
+		<topic>ENTERTAIMENT</topic>
+		<message>Superhéroe ciego de Marvel:</message>
+		<option>Deathlok</option>
+		<option>Deadpool</option>
+		<option>Ant-Man</option>
+		<option>Daredevil</option>
+		<answer>Daredevil</answer>
+	</question>
+	<question>
+		<topic>HISTORY</topic>
+		<message>¿Quién fue el único Faraón Egipcio conocido por morir en una batalla?:</message>
+		<option>Kamose</option>
+		<option>Taa II</option>
+		<option>Seti I</option>
+		<option>Ramsés II</option>
+		<answer>Taa II</answer>
+	</question>
+	<question>
+		<topic>HISTORY</topic>
+		<message>¿Quién dijo, "En la victoria, mereces el champagne, en la derrota, lo necesitas"?:</message>
+		<option>Hammurabi</option>
+		<option>Alejandro El Grande</option>
+		<option>Napoleón Bonaparte</option>
+		<option>Julio César</option>
+		<answer>Napoleón Bonaparte</answer>
+	</question>
+	<question>
+		<topic>HISTORY</topic>
+		<message>¿Cuál fue el primer S.O para las PC's introducido en 1978"?:</message>
+		<option>Microsoft</option>
+		<option>IBM</option>
+		<option>Windowa</option>
+		<option>Apple</option>
+		<answer>Apple</answer>
+	</question>
+	<question>
+		<topic>SCIENCE</topic>
+		<message>¿Cuántos días le toma a la Tierra girar alrededor del Sol"?:</message>
+		<option>36</option>
+		<option>365</option>
+		<option>3650</option>
+		<option>90</option>
+		<answer>365</answer>
+	</question>
+</questions>

@@ -19,12 +19,12 @@ import javax.swing.ImageIcon;
 
 import org.jdom2.JDOMException;
 
-import com.sun.javafx.property.adapter.ReadOnlyPropertyDescriptor;
 
 import connection.Request;
 import observer.IObsevable;
 import observer.IObsever;
 import persistence.FileManager;
+import structure.SimpleList;
 import utilities.Utilities;
 
 public class Client extends Thread implements IObsevable {
@@ -39,6 +39,7 @@ public class Client extends Thread implements IObsevable {
 	private User user;
 	private FileManager fileManager;
 	private ArrayList<IObsever> obseverList;
+	private ArrayList<QuestionList> questionList;
 	
 	public Client(String host, int port) {
 		obseverList = new ArrayList<>();
@@ -49,6 +50,10 @@ public class Client extends Thread implements IObsevable {
 	
 	public User getUser() {
 		return user;
+	}
+	
+	public void setQuestionList(SimpleList<String> questionList) {
+		user.setQuestionList(questionList);
 	}
 	
 	public String signIn(String email, String password) throws UnknownHostException, IOException {
@@ -109,7 +114,7 @@ public class Client extends Thread implements IObsevable {
 			String email = input.readUTF();
 			String password = input.readUTF();
 			LocalDate birthDate = Utilities.stringToLocalDate(input.readUTF());
-			String nameImage = input.readUTF();
+			input.readUTF();
 			byte[] image = new byte[input.readInt()];
 			input.readFully(image);
 			File file = new File(input.readUTF());
@@ -144,6 +149,29 @@ public class Client extends Thread implements IObsevable {
 		}
 	}
 	
+	public void startGameOneVsOne() throws IOException {
+		output.writeUTF(Request.PLAY_ONE_VS_ONE.toString());
+	}
+	
+	public void sendQuestionList() throws IOException {
+		output.writeUTF(Request.CHANGE_QUESTION_LIST.toString());
+		output.writeUTF(Utilities.simpleListToString(user.getAccountInfo().getQuestionList()));
+	}
+	
+	public void getQuestionsGame() throws IOException {
+		File file = new File(input.readUTF());
+		readFile(file);
+		questionList = fileManager.readQuestionFile(file);
+		file.delete();
+		5
+	}
+	
+	public void startGameOnevsOne() {
+		for (IObsever o : obseverList) {
+			o.startGameOnevsOne();
+		}
+	}
+	
 	@Override
 	public void run() {
 		System.out.println("La aplicacion comenzo");
@@ -154,7 +182,12 @@ public class Client extends Thread implements IObsevable {
 				case SEND_INFO_USER_AFTER_LOGIN:
 					resSendInfoUser();
 					break;
-
+				case START_GAME_ONE_VS_ONE:
+					startGameOnevsOne();
+					break;
+				case SEND_QUESTIONS_GAME_ONE_VS_ONE:
+					getQuestionsGame();
+					break;
 				default:
 					break;
 				}
@@ -163,6 +196,8 @@ public class Client extends Thread implements IObsevable {
 			}
 		}
 	}
+	
+	
 
 	@Override
 	public void addObserver(IObsever obsever) {

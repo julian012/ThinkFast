@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<accountInfo>
+  <onFire>0</onFire>
+  <listIdFriends />
+  <usedPowers>0</usedPowers>
+  <powerList />
+  <questionList>
+    <question>MUSIC</question>
+    <question>ART</question>
+    <question>ENTERTAIMENT</question>
+    <question>PHILOSOPHY</question>
+    <question>MOVIES</question>
+    <question>HISTORY</question>
+    <question>SPORTS</question>
+    <question>GEOGRAPHY</question>
+  </questionList>
+  <totalGames>0</totalGames>
+  <games>0</games>
+  <money>50</money>
+  <experience>0</experience>
+</accountInfo>

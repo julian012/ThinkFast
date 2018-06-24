@@ -1,14 +1,16 @@
 package utilities;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.ImageIcon;
 
 import models.League;
 import models.TypeQuestion;
@@ -79,5 +81,84 @@ public class Utilities {
 		}else {
 			return League.DIAMON.getName();
 		}
+	}
+	
+	public static ImageIcon getImage(URL path) {
+		return new ImageIcon(path);
+		
+	}
+	
+	public static String getExtencionName(String name) {
+		int count = name.length();
+		char[] values = {name.charAt(count -6),name.charAt(count -5),
+				name.charAt(count -4),name.charAt(count -3),name.charAt(count -2),name.charAt(count -1)};
+		return new String(values);
+	}
+	
+	public static String getNoName(String name) {
+		int count = name.length() - 6;
+		String result = "";
+		for (int i = 0; i < count; i++) {
+			result += name.charAt(i);
+		}
+		return result;
+	}
+	
+	public static String getWithOutExtencionName(String name) {
+		int count = name.length();
+		String result = "";
+		for (int i = 0; i < count; i++) {
+			if(name.charAt(i) =='.') {
+				return result;
+			}else {
+				result += name.charAt(i);
+			}
+		}
+		return result;
+	}
+	public static String getWithOutExtencionNoName(String name) {
+		int count = name.length();
+		String result = "";
+		for (int i = 0 - 1; i < count; i++) {
+			if(name.charAt(i) =='N') {
+				if(name.charAt(i + 1) == 'o') {
+					if(name.charAt(i + 2) == '.') {
+						return result;
+					}
+				}
+			}else {
+				result += name.charAt(i);
+			}
+		}
+		return result;
+	}
+	
+	public static String simpleListToString(SimpleList<String> list) {
+		String value = "";
+		value += list.getHead().getInfo();
+		NodeSimpleList<String> actualNode = list.getHead().getNext();
+		while(actualNode != null) {
+			value += ",";
+			value += actualNode.getInfo();
+			actualNode = actualNode.getNext();
+		}
+		return value;
+	}
+	
+	public static SimpleList<String> stringToSimpleList(String value){
+		String[] list = value.split(",");
+		System.out.println(list.length);
+		SimpleList<String> questionList = new SimpleList<>();
+		for (int i = 0; i < list.length; i++) {
+			questionList.addNode(new NodeSimpleList<String>(list[i]));
+		}
+		return questionList;
+	}
+	
+	public static String getExtenctionNoName(String name) {
+		int count = name.length();
+		char[] values = {name.charAt(count -4),name.charAt(count -3),
+				name.charAt(count -2),name.charAt(count -1),};
+		return new String(values);
 	}
 }

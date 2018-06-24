@@ -12,6 +12,7 @@ import java.net.UnknownHostException;
 import java.util.Date;
 import java.util.Properties;
 
+import connection.Connection;
 import connection.Request;
 import models.Client;
 import observer.IObsevable;
@@ -32,7 +33,6 @@ public class ClientController implements ActionListener, WindowListener, IObseve
 	private JDSystemMessage systemMessage;
 	private IObsevable obsevable;
 	private JFMainWindowGame mainWindowGame;
-
 
 	public ClientController() {
 		loadProperties();
@@ -82,8 +82,8 @@ public class ClientController implements ActionListener, WindowListener, IObseve
 				e.printStackTrace();
 			}
 		}else {
-			systemMessage = new JDSystemMessage(result,singIn);
-			systemMessage.repaint();
+			systemMessage = new JDSystemMessage(singIn,result,this);
+			systemMessage.setVisible(true);
 		}
 	}
 
@@ -133,10 +133,10 @@ public class ClientController implements ActionListener, WindowListener, IObseve
 		try {
 			Thread.sleep(2000);
 			mainWindowGame = new JFMainWindowGame(this, client.getUser());
-			systemMessage = new JDSystemMessage(message,mainWindowGame);
+			systemMessage = new JDSystemMessage(mainWindowGame,message,this);
+			systemMessage.setVisible(true);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -146,16 +146,48 @@ public class ClientController implements ActionListener, WindowListener, IObseve
 			createAccount();
 			break;
 		default:
-			systemMessage = new JDSystemMessage(result, singUp);
+			systemMessage = new JDSystemMessage(singUp,result,this);
+			systemMessage.setVisible(true);
 			break;
 		}
 	}
-	
+
 	private void closeApp() {
 		try {
 			client.closeApp();
 			System.exit(0);
 		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void saveQuestions() {
+		try {
+			mainWindowGame.closeJDQuestionList();
+			client.sendQuestionList();
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	private void showQuestionPanel() {
+		mainWindowGame.showQuestionPanel(this, client.getUser());
+	}
+
+	private void playOneVsOne() {
+		try {
+			client.startGameOneVsOne();
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		systemMessage = new JDSystemMessage(Events.WAITING_OPPONENT.toString(), this);
+		systemMessage.setVisible(true);
+	}
+
+	public void cancelWaittingOpponent() {
+		try {
+			systemMessage.dispose();
+		}catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
@@ -178,6 +210,18 @@ public class ClientController implements ActionListener, WindowListener, IObseve
 			break;
 		case CLOSE_APP:
 			closeApp();
+			break;
+		case QUESTION_PANEL:
+			showQuestionPanel();
+			break;
+		case SAVE_QUESTIONS:
+			saveQuestions();
+			break;
+		case PLAY_ONE_VS_ONE:
+			playOneVsOne();
+			break;
+		case WAITING_OPPONENT_CANCEL:
+			cancelWaittingOpponent();
 			break;
 		default:
 			break;
@@ -208,13 +252,32 @@ public class ClientController implements ActionListener, WindowListener, IObseve
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
+		//closeApp();
 	}
 
 	@Override
 	public void update() {
-//		mainWindowGame.initComponents(
-//				this
-//				, client.getUser());
+		//		mainWindowGame.initComponents(
+		//				this
+		//				, client.getUser());
+	}
+
+	@Override
+	public void playOnevsOne(Connection connection) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/**
+	 * Ya se conectaron los dos jugadores ya se puede iniciar la partida
+	 */
+	@Override
+	public void startGameOnevsOne() {
+		try {
+			systemMessage.dispose();
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 }

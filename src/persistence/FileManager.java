@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -15,6 +16,8 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
 import models.AccountInfo;
+import models.QuestionList;
+import models.TypeQuestion;
 import models.User;
 import structure.Node;
 import structure.NodeSimpleList;
@@ -25,6 +28,7 @@ import view.Power;
 public class FileManager {
 
 	public static final String PATH_FILE_USER = "data/userInfo.xml";
+	public static final String PATH_FILE_QUESTION = "data/QuestionsData.xml";
 	public static final String USER_ROOT = "userList";
 	public static final String USER = "user";
 	public static final String ID_USER = "id";
@@ -42,6 +46,10 @@ public class FileManager {
 	public static final String TOTAL_GAMES = "totalGames";
 	public static final String QUESTION_LIST = "questionList";
 	public static final String QUESTION = "question";
+	public static final String MESSAGE = "message";
+	public static final String OPTION = "option";
+	public static final String TOPIC = "topic";
+	public static final String ANSWER = "answer";
 	public static final String POWERLIST = "powerList";
 	public static final String POWER = "power";
 	public static final String NAME_POWER = "namePower";
@@ -50,6 +58,67 @@ public class FileManager {
 	public static final String LIST_ID_FRIENDS = "listIdFriends";
 	public static final String ID_FRIEND = "idFriends";
 	public static final String ON_FIRE = "onFire";
+	
+	public ArrayList<QuestionList> readQuestionFile(File file){
+		SAXBuilder builder = new SAXBuilder();
+		ArrayList<QuestionList> list = new ArrayList<>();
+		Document document;
+		try {
+			document = (Document) builder.build(file);
+			Element rootNode = document.getRootElement();
+			List<Element> info = rootNode.getChildren(QUESTION);
+			Iterator<Element> iteratorList = info.iterator();
+			while(iteratorList.hasNext()) {
+				Element infoNode = (Element) iteratorList.next();
+				TypeQuestion topic = TypeQuestion.valueOf(infoNode.getChildText(TOPIC));
+				String message = infoNode.getChildText(MESSAGE);
+				String answer = infoNode.getChildText(ANSWER);
+				List<Element> options = infoNode.getChildren(OPTION);
+				String optionA = options.get(0).getText();
+				String optionB = options.get(1).getText();
+				String optionC = options.get(2).getText();
+				String optionD = options.get(3).getText();
+				QuestionList questionList = new QuestionList(topic, message, optionA, optionB, optionC, optionD, answer);
+				list.add(questionList);
+			}
+		} catch (JDOMException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		return list;
+	}
+	
+	public ArrayList<QuestionList> readQuestionFile(){
+		SAXBuilder builder = new SAXBuilder();
+		File archive = new File(PATH_FILE_QUESTION);
+		ArrayList<QuestionList> list = new ArrayList<>();
+		Document document;
+		try {
+			document = (Document) builder.build(archive);
+			Element rootNode = document.getRootElement();
+			List<Element> info = rootNode.getChildren(QUESTION);
+			Iterator<Element> iteratorList = info.iterator();
+			while(iteratorList.hasNext()) {
+				Element infoNode = (Element) iteratorList.next();
+				TypeQuestion topic = TypeQuestion.valueOf(infoNode.getChildText(TOPIC));
+				String message = infoNode.getChildText(MESSAGE);
+				String answer = infoNode.getChildText(ANSWER);
+				List<Element> options = infoNode.getChildren(OPTION);
+				String optionA = options.get(0).getText();
+				String optionB = options.get(1).getText();
+				String optionC = options.get(2).getText();
+				String optionD = options.get(3).getText();
+				QuestionList questionList = new QuestionList(topic, message, optionA, optionB, optionC, optionD, answer);
+				list.add(questionList);
+			}
+		} catch (JDOMException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		return list;
+	}
 
 	public SimpleList<User> readUserFile(){
 		SAXBuilder builder = new SAXBuilder();
@@ -130,7 +199,39 @@ public class FileManager {
 		File archive = new File("data/infoUsers/" +  id +"/accountInfo.xml");
 		return getAccountInfoByFile(archive);
 	}
-
+	
+	public static void saveToXMLQuestionList(ArrayList<QuestionList> list, User user) {
+		Document doc = new Document();
+		Element root = new Element(QUESTION_LIST);
+		for (int i = 0; i < list.size(); i++) {
+			QuestionList question = list.get(i);
+			Element q = new Element(QUESTION);
+			Element typeQuestion = new Element(TOPIC);
+			typeQuestion.addContent(question.getTypeQuestion().toString());
+			Element message = new Element(MESSAGE);
+			message.addContent(question.getMessage());
+			String[] options = question.getOptions();
+			for (int j = 0; j < options.length; j++) {
+				Element option = new Element(OPTION);
+				option.addContent(options[j]);
+				q.addContent(option);
+			}
+			Element answer = new Element(ANSWER);
+			answer.addContent(question.getAnswer());
+			q.addContent(typeQuestion);
+			q.addContent(answer);
+			q.addContent(message);
+			root.addContent(q);
+		}
+		doc.setRootElement(root);
+		XMLOutputter outter = new XMLOutputter();
+		outter.setFormat(Format.getPrettyFormat());
+		try {
+			outter.output(doc, new FileWriter(new File("data/infoUsers/" + user.getId() + "/questions.xml")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void saveToXMLUserInfo(SimpleList<User> list) {
 		Document doc = new Document();

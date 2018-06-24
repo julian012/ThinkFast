@@ -25,15 +25,19 @@ public class Server extends Thread implements IObsevable, IObsever{
 	private ServerSocket serverSocket;
 	private boolean serverUp;
 	private ArrayList<Connection> connectionList;
+	private ArrayList<QuestionList> questionList;
 	private SimpleList<User> userList;
 	private IObsevable obsevable;
+	private ArrayList<Game> gameList;
 	private static final Logger LOGGER = Logger.getAnonymousLogger();
 	
-	public Server(SimpleList<User> userList, int port) throws IOException {
+	public Server(ArrayList<QuestionList> questionList, SimpleList<User> userList, int port) throws IOException {
 		obseverList = new ArrayList<>();
 		serverSocket = new ServerSocket(port);
 		connectionList = new ArrayList<>();
+		gameList = new ArrayList<>();
 		this.userList = userList;
+		this.questionList = questionList;
 	}
 	
 	public SimpleList<User> getUserList(){
@@ -194,6 +198,43 @@ public class Server extends Thread implements IObsevable, IObsever{
 				break;
 			}
 		}
+		notifyChange();
+	}
+
+	@Override
+	public void playOnevsOne(Connection connection) {
+		LOGGER.log(Level.SEVERE, "Llego para jugar: " + connection.getUser().getNickname());
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Game game = validateGameList(connection);
+		if(game != null ) {
+			game.startGame();
+		}else {
+			game = new Game(connection, questionList);
+			gameList.add(game);
+		}
+		
+	}
+	/**
+	 * Valida si hay algun usuario esperando oponente de lo contrario crea la partida
+	 */
+	public Game validateGameList(Connection connection) {
+		for (int i = 0; i < gameList.size(); i++) {
+			if(gameList.get(i).isWaitForPlayer()) {
+				gameList.get(i).addSecondPlayer(connection);
+				return gameList.get(i);
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public void startGameOnevsOne() {
+		// TODO Auto-generated method stub
 		
 	}
 }

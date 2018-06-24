@@ -7,6 +7,7 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import connection.Connection;
 import models.Server;
 import observer.IObsevable;
 import observer.IObsever;
@@ -31,7 +32,7 @@ public class ServerController implements IObsever {
 		try {
 			input = new FileInputStream("config.properties");
 			prop.load(input);
-			server = new Server(fileManager.readUserFile(),Integer.parseInt(prop.getProperty("port")));
+			server = new Server(fileManager.readQuestionFile(),fileManager.readUserFile(),Integer.parseInt(prop.getProperty("port")));
 			server.startServer();
 			obsevable = server;
 			obsevable.addObserver(this);
@@ -49,5 +50,17 @@ public class ServerController implements IObsever {
 	@Override
 	public void update() {
 		fileManager.saveToXMLUserInfo(server.getUserList());
+	}
+
+	@Override
+	public void playOnevsOne(Connection connection) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void startGameOnevsOne() {
+		// TODO Auto-generated method stub
+		
 	}
 }

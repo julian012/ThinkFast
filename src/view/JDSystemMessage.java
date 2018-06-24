@@ -1,15 +1,12 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,9 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
-import controller.Events;
-
-
+import controller.ClientController;
 
 public class JDSystemMessage extends JDialog {
 
@@ -35,30 +30,34 @@ public class JDSystemMessage extends JDialog {
 	private String valueTile;
 	private String valueMessage;
 	private JButton imageMessage;
-	
-	public JDSystemMessage(String request, JFrame frame) {
-		super(frame, true);
+	private boolean listener;
+	private String buttonMessage;
+	private String actionCommand;
+
+	public JDSystemMessage(String request, ClientController controller) {
+		setModal(true);
+		this.setModalityType(DEFAULT_MODALITY_TYPE);
 		loadProperties(request);
 		setSize(446,225);
 		setLocationRelativeTo(null);
 		setTitle(valueTile);
 		setResizable(false);
 		setLayout(null);
-		initComponents();
-		timeToLoad();
+		initComponents(controller);
 	}
 	
-	public void timeToLoad() {
-		try {
-			Thread.sleep(1000);
-			revalidate();
-			repaint();
-			setVisible(true);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	public JDSystemMessage(JFrame frame,String request, ClientController controller) {
+		super(frame, true);
+		this.setModalityType(DEFAULT_MODALITY_TYPE);
+		loadProperties(request);
+		setSize(446,225);
+		setLocationRelativeTo(null);
+		setTitle(valueTile);
+		setResizable(false);
+		setLayout(null);
+		initComponents(controller);
 	}
-	
+
 	public void loadProperties(String request) {
 		prop = new Properties();
 		try {
@@ -68,12 +67,25 @@ public class JDSystemMessage extends JDialog {
 			configSystemUI();
 			valueTile = prop.getProperty("title");
 			valueMessage = prop.getProperty("message");
+			listener = Boolean.parseBoolean(prop.getProperty("listener"));
+			validateListener();
 			getContentPane().setBackground(Color.decode("#" + prop.getProperty("background_color")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+
+	public void validateListener() {
+		if(listener) {
+			buttonMessage = prop.getProperty("buttonMessage");
+			actionCommand = prop.getProperty("actionCommand");
+		}
+	}
 	
+	public JDSystemMessage getJDSystemMessage() {
+		return this;
+	}
+
 	public void configSystemUI() {
 		UIManager.put("Button.background", Color.decode("#" + prop.getProperty("buttom_color")));
 		UIManager.put("Button.border", BorderFactory.createEmptyBorder());
@@ -86,8 +98,13 @@ public class JDSystemMessage extends JDialog {
 		UIManager.put("TextArea.background", Color.decode("#" + prop.getProperty("background_color")));
 		UIManager.put("TextArea.border", BorderFactory.createEmptyBorder());
 	}
-	
-	public void initComponents() {
+
+	public void closeWindow() {
+		this.setVisible(false);
+		this.dispose();
+	}
+
+	public void initComponents(ClientController controller) {
 		jLTitle = new JLabel(valueTile, JLabel.CENTER);
 		jLTitle.setBounds(193,33,253,29);
 		this.add(jLTitle);
@@ -97,11 +114,17 @@ public class JDSystemMessage extends JDialog {
 		jTAMessage.setLineWrap(true);
 		jTAMessage.setWrapStyleWord(true);
 		this.add(jTAMessage);
-		jBExit = new JButton("Aceptar");
-		jBExit.addActionListener(e -> this.setVisible(false));
+		if(listener) {
+			jBExit = new JButton(buttonMessage);
+			jBExit.addActionListener(controller);
+			jBExit.setActionCommand(actionCommand);
+		}else {
+			jBExit = new JButton("Aceptar");
+			jBExit.addActionListener(e -> this.dispose());
+		}
 		jBExit.setBounds(193, 136, 231, 29);
 		this.add(jBExit);
-		
+
 		imageMessage = new JButton(new ImageIcon(image.getImage().getScaledInstance(193, 193,Image.SCALE_SMOOTH)));
 		imageMessage.setOpaque(false);
 		imageMessage.setContentAreaFilled(false);

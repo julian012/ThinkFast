@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import javax.swing.ImageIcon;
 
+import structure.SimpleList;
+
 public class User {
 	
 	private String id;
@@ -117,6 +119,10 @@ public class User {
 
 	public void setImageUser(ImageIcon imageUser) {
 		this.imageUser = imageUser;
+	}
+	
+	public void setQuestionList(SimpleList<String> questionList) {
+		accountInfo.setQuestionList(questionList);
 	}
 	
 	

@@ -27,10 +27,12 @@ public class Constraints {
 	
 	//Ventana principal
 	public static final Color COLOR_DARK_GREY = Color.decode("#333333");
-	public static final String LABEL_XP = "Experiencia";
-	public static final String LABEL_MONEY = "Monedas";
+	public static final String BUTTOM_GOALS = "Lista de logros";
+	public static final String BUTTOM_QUESTIONS = "Categoria de preguntas";
+	public static final String LABEL_XP = "Experiencia: ";
+	public static final String LABEL_MONEY = "Monedas: ";
 	public static final String LABEL_FRIENDS = "Lista de amigos";
-	public static final String LABEL_POWERS = "Poderes";
+	public static final String LABEL_POWERS = "Poderes: ";
 	public static final String LABEL_TITLE_GAMES = "Modos de juego";
 	public static final String TOOT_TIP_TEXT_EXIT = "Salir";
 	public static final String LABEL_LEAGUE = "Liga: ";
@@ -41,5 +43,7 @@ public class Constraints {
 	public static final Font FONT_MAIN_WINDOW_LABELS_SMALL = new Font("Gadugi", Font.PLAIN, 14);
 	public static final Cursor HAND = new Cursor(Cursor.HAND_CURSOR);
 	
+	//Panel de preguntas
+	public static final String BUTTOM_SAVE = "Cerrar";
 	
 }

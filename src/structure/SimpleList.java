@@ -1,6 +1,6 @@
 package structure;
 
-public class SimpleList<T> {
+public class SimpleList<T> implements Cloneable{
 
 	public NodeSimpleList<T> head;
 
@@ -44,19 +44,14 @@ public class SimpleList<T> {
 		return false;
 	}
 
-//	public String printList(){
-//		String list = "[";
-//		if (head != null) {
-//			Node<T> actualNode = getHead();
-//			while(actualNode != null){
-//				if (actualNode.getNext() != null) {
-//					list += actualNode.getInfo() + ", ";
-//				}else{
-//					list += actualNode.getInfo() + " ";
-//				}
-//				actualNode = actualNode.getNext();
-//			}
-//		}
-//		return list + "]";
-//	}
+	@Override
+	public Object clone(){
+		Object obj=null;
+		try{
+			obj=super.clone();
+		}catch(CloneNotSupportedException ex){
+			System.out.println(" no se puede duplicar");
+		}
+		return obj;
+	}
 }

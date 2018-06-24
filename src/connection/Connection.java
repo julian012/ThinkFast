@@ -16,11 +16,13 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 import models.AccountInfo;
+import models.QuestionList;
 import models.Server;
 import models.User;
 import observer.IObsevable;
 import observer.IObsever;
 import persistence.FileManager;
+import structure.SimpleList;
 import utilities.Utilities;
 
 public class Connection extends Thread implements IObsevable{
@@ -44,6 +46,10 @@ public class Connection extends Thread implements IObsevable{
 		this.user = user;
 		output.writeUTF(Request.START_PROGRAM.toString());
 		start();
+	}
+	
+	public User getUser() {
+		return user;
 	}
 
 	public boolean isConnectionUp() {
@@ -104,6 +110,30 @@ public class Connection extends Thread implements IObsevable{
 		fInputStream.read(array);
 		fInputStream.close();
 	}
+	
+	private void changeQuestionList() throws IOException {
+		SimpleList<String> list = Utilities.stringToSimpleList(input.readUTF());
+		user.getAccountInfo().setQuestionList(list);
+		notifyChange();
+	}
+	
+	private void playOneVsOne() {
+		for (IObsever o : obseverList) {
+			o.playOnevsOne(this);
+		}
+	}
+	
+	public void sendQuestionList(ArrayList<QuestionList> list) throws IOException {
+		FileManager.saveToXMLQuestionList(list, getUser());
+		File file = new File("data/infoUsers/" + getUser().getId() + "/questions.xml");
+		byte[] array = new byte[(int) file.length()];
+		readFileBytes(file, array);
+		output.writeUTF(Request.SEND_QUESTIONS_GAME_ONE_VS_ONE.toString());
+		output.writeUTF(user.getId() + "-"+file.getName());
+		output.writeInt(array.length);
+		output.write(array);
+		file.delete();
+	}
 
 	@Override
 	public void run() {
@@ -117,12 +147,26 @@ public class Connection extends Thread implements IObsevable{
 				case CLOSE_CONNECTION:
 					closeConnection();
 					break;
+				case CHANGE_QUESTION_LIST:
+					changeQuestionList();
+					break;
+				case PLAY_ONE_VS_ONE:
+					playOneVsOne();
+					break;
 				default:
 					break;
 				}
 			} catch (IOException e) {
 				LOGGER.log(Level.SEVERE, e.getMessage());
 			}
+		}
+	}
+	
+	public void startGame() {
+		try {
+			output.writeUTF(Request.START_GAME_ONE_VS_ONE.toString());
+		} catch (IOException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage());
 		}
 	}
 
