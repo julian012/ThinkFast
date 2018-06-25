@@ -46,4 +46,13 @@ public class Constraints {
 	//Panel de preguntas
 	public static final String BUTTOM_SAVE = "Cerrar";
 	
+	//Ventana de Juego
+		public static final Color COLOR_BACKGROUNDGAME_MARFIL = Color.decode("#FEF5E7");
+		public static final String RIVAL_ANSWERING = "Tú contrincante ya respondió";
+		public static final String RIVAL_NOT_ANSWERING = "Tú contrincante aún no ha repondido";
+		public static final Color COLOR_ORANGE = Color.decode("#F8C471");
+		public static final Color COLOR_BLUE = Color.decode("#5DADE2");
+		public static final Color COLOR_RED = Color.decode("#E74C3C");
+		public static final String LBL_POWERS_INFO = "Poderes: ";
+	
 }

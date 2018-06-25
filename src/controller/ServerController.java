@@ -63,4 +63,16 @@ public class ServerController implements IObsever {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void sendQuestionOnevsOne() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void changeQuestion(String id) {
+		
+		
+	}
 }

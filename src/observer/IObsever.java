@@ -12,4 +12,9 @@ public interface IObsever  {
 	public void playOnevsOne(Connection connection);
 	
 	public void startGameOnevsOne();
+	
+	public void sendQuestionOnevsOne();
+	
+	public void changeQuestion(String id);
+
 }

@@ -21,6 +21,34 @@ public class QuestionList {
 		this.answer = answer;
 	}
 	
+	public String[] getQuestion() {
+		return new String[] {message,optionA,optionB,optionC,optionD};
+	}
+	
+	public int[] removeWrongAnswers() {
+		int[] values = new int[2];
+		if(answer.equals(optionA)) {
+			values[0] = 1;
+		}else if(answer.equals(optionB)) {
+			values[0] = 2;
+		}else if(answer.equals(optionC)) {
+			values[0] = 3;
+		} else {
+			values[0] = 4;
+		}
+		values[1] = randomvalue(values[0]);
+		return values;
+	}
+	
+	public int randomvalue(int number) {
+		int value = (int)(Math.random() * 4);
+		if(value == number) {
+			return randomvalue(number);
+		}else {
+			return value;
+		}
+	}
+	
 	public String[] getOptions() {
 		return new String[] {optionA,optionB,optionC,optionD};
 	}

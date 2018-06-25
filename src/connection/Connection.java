@@ -8,14 +8,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
-import models.AccountInfo;
 import models.QuestionList;
 import models.Server;
 import models.User;
@@ -43,6 +41,7 @@ public class Connection extends Thread implements IObsevable{
 		output = new DataOutputStream(socket.getOutputStream());
 		connectionUp = true;
 		this.server = server;
+		this.server.getId();
 		this.user = user;
 		output.writeUTF(Request.START_PROGRAM.toString());
 		start();
@@ -134,7 +133,21 @@ public class Connection extends Thread implements IObsevable{
 		output.write(array);
 		file.delete();
 	}
-
+	
+	private  void changeQuestion() throws IOException {
+		for (IObsever o : obseverList) {
+			o.changeQuestion(input.readUTF());
+		}
+	}
+	
+	public void nextQuestion() {
+		try {
+			output.writeUTF(Request.SET_NEXT_QUESTION_ONE_VS_ONE.toString());
+		} catch (IOException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage());
+		}
+	}
+	
 	@Override
 	public void run() {
 		System.out.println("La aplicacion comenzo");
@@ -152,6 +165,9 @@ public class Connection extends Thread implements IObsevable{
 					break;
 				case PLAY_ONE_VS_ONE:
 					playOneVsOne();
+					break;
+				case CHANGE_QUESTION_ONE_VS_ONE:
+					changeQuestion();
 					break;
 				default:
 					break;
@@ -179,5 +195,6 @@ public class Connection extends Thread implements IObsevable{
 	public void removeObserver(IObsever obsever) {
 		obseverList.remove(obsever);
 	}
+	
 
 }

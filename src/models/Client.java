@@ -40,6 +40,8 @@ public class Client extends Thread implements IObsevable {
 	private FileManager fileManager;
 	private ArrayList<IObsever> obseverList;
 	private ArrayList<QuestionList> questionList;
+	private QuestionList actualQuestion;
+	private int countQuestion;
 	
 	public Client(String host, int port) {
 		obseverList = new ArrayList<>();
@@ -162,13 +164,36 @@ public class Client extends Thread implements IObsevable {
 		File file = new File(input.readUTF());
 		readFile(file);
 		questionList = fileManager.readQuestionFile(file);
-		file.delete();
-		5
+		System.out.println("Llegaron:" + questionList.size() + "preguntas");
+		sendQuestionNameGameOnevsOne();
+	}
+	
+	public void sendQuestionNameGameOnevsOne() {
+		for (IObsever o : obseverList) {
+			o.sendQuestionOnevsOne();
+		}
 	}
 	
 	public void startGameOnevsOne() {
+		countQuestion = 0;
 		for (IObsever o : obseverList) {
 			o.startGameOnevsOne();
+		}
+	}
+	
+	public QuestionList removeFirstQuestion() {
+		QuestionList question = questionList.get(0);
+		questionList.remove(0);
+		return question;
+	}
+	
+	public QuestionList getQuestion() {
+		countQuestion++;
+		if(countQuestion < 10) {
+			actualQuestion = removeFirstQuestion();
+			return actualQuestion;
+		}else {
+			return null;
 		}
 	}
 	
@@ -188,12 +213,25 @@ public class Client extends Thread implements IObsevable {
 				case SEND_QUESTIONS_GAME_ONE_VS_ONE:
 					getQuestionsGame();
 					break;
+				case SET_NEXT_QUESTION_ONE_VS_ONE:
+					sendQuestionNameGameOnevsOne();
+					break;
 				default:
 					break;
 				}
 			} catch (IOException e) {
 				LOGGER.log(Level.SEVERE, e.getMessage());
 			}
+		}
+	}
+	
+	public void changeQuestion() {
+		try {
+			output.writeUTF(Request.CHANGE_QUESTION_ONE_VS_ONE.toString());
+			output.writeUTF(user.getId());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	

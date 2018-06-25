@@ -15,10 +15,12 @@ import java.util.Properties;
 import connection.Connection;
 import connection.Request;
 import models.Client;
+import models.QuestionList;
 import observer.IObsevable;
 import observer.IObsever;
 import utilities.Utilities;
 import view.JDSystemMessage;
+import view.JFGameQuestion;
 import view.JFMainWindowGame;
 import view.JFSingIn;
 import view.JFSingUp;
@@ -33,6 +35,8 @@ public class ClientController implements ActionListener, WindowListener, IObseve
 	private JDSystemMessage systemMessage;
 	private IObsevable obsevable;
 	private JFMainWindowGame mainWindowGame;
+	private JFGameQuestion jfGame;
+	private boolean statusGameOneOne; 
 
 	public ClientController() {
 		loadProperties();
@@ -275,9 +279,62 @@ public class ClientController implements ActionListener, WindowListener, IObseve
 	public void startGameOnevsOne() {
 		try {
 			systemMessage.dispose();
+			Thread.sleep(3000);
+			//mainWindowGame.setVisible(false);
+			Thread.sleep(5000);
+			statusGameOneOne = true;
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		
+		/**
+		 * Se activa la ventana y empieza a responder las preguntas
+		 */
+		
+	}
+	
+	public void startTheadTime() {
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while(statusGameOneOne) {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if(!jfGame.progressBar()) {
+						statusGameOneOne = false;
+						System.out.println("El tiempo acabo entonces va a pedir cambio de pregunta");
+						client.changeQuestion();
+					}
+				}
+			}
+		});
+		statusGameOneOne = true;
+		thread.start();
+	}
+
+	@Override
+	public void sendQuestionOnevsOne() {
+		QuestionList questionList = client.removeFirstQuestion();
+		if(jfGame != null) {
+			jfGame.reloadTime();
+			jfGame.setQuestionAnswer(questionList.getQuestion(),questionList.getAnswer());
+			startTheadTime();
+		}else{
+			jfGame = new JFGameQuestion(this,questionList.getQuestion(),questionList.getAnswer());
+			jfGame.reloadTime();
+			startTheadTime();		
+		}
+		jfGame.setVisible(true);
+	}
+
+	@Override
+	public void changeQuestion(String id) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

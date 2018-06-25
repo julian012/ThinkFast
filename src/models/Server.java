@@ -237,4 +237,22 @@ public class Server extends Thread implements IObsevable, IObsever{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void sendQuestionOnevsOne() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void changeQuestion(String id) {
+		LOGGER.log(Level.SEVERE, "El jugador: " + id + " ya respondio la pregunta");
+		changeStatusUser(id);
+	}
+	
+	public void changeStatusUser(String id) {
+		for (int i = 0; i < gameList.size(); i++) {
+			gameList.get(i).getUserById(id);
+		}
+	}
 }
