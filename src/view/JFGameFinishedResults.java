@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 
@@ -17,7 +16,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 
 import javax.swing.UIManager;
 
@@ -40,7 +38,9 @@ public class JFGameFinishedResults extends JFrame{
 	private JButton jBBackHome;
 	private JPanel pnPlayerWinner, pnPlayerLooser;
 	private JLabel lblWinnerTitle, lblLooserTitle;
-	private JLabel lblWinnerName, lblLooserName;
+	private JButton jBImageWinner;
+	private JButton jBImageLosser; 
+//	private JLabel lblWinnerName, lblLooserName;
 	private JLabel cashWinner, cashLooser;
 	private JLabel expWinner, expLooser;
 	
@@ -97,7 +97,13 @@ public class JFGameFinishedResults extends JFrame{
 				System.out.println(e.getMessage());
 			}
 		}
+		jBImageWinner = new JButton(new ImageIcon(userImage1.getImage().getScaledInstance(115, 115, Image.SCALE_SMOOTH)));
+		jBImageWinner.setBounds(367, 81, 115, 115);
+		this.add(jBImageWinner);
 		
+		jBImageLosser = new JButton(new ImageIcon(userImage2.getImage().getScaledInstance(115, 115, Image.SCALE_SMOOTH)));
+		jBImageLosser.setBounds(367, 301, 115, 115);
+		this.add(jBImageLosser);
 	}
 
 	public void timeToLoad() {
@@ -144,7 +150,8 @@ public class JFGameFinishedResults extends JFrame{
 		uploadImage.addActionListener(this);
 		uploadImage.setBounds(347, 184, 169, 29);
 		this.add(uploadImage);*/
-
+		
+		
 		lblWinnerTitle = new JLabel(Constraints.LBL_TITLE_WINNER);
 		lblWinnerTitle.setForeground(Color.WHITE);
 		lblWinnerTitle.setFont(new Font("Gadugi", Font.PLAIN, 26));
@@ -218,8 +225,6 @@ public class JFGameFinishedResults extends JFrame{
 		super.paint(g);
 		g.drawImage(imageBackGround.getSubimage(0, 0, 450, 1350), 1, 28, 148, 448, null);
 		g.drawImage(imageBackGround.getSubimage(1050, 0, 450, 1350), 704, 28, 148, 448, null);
-		g.drawImage(userImage1.getImage(), 367, 81, 115, 115, null);
-		g.drawImage(userImage2.getImage(), 367, 301, 115, 115, null);
 		g.drawImage(imageCash1, 467, 205, 46, 32, null);
 		g.drawImage(imageCash2, 467, 425, 46, 32, null);
 		g.drawImage(imagePoints1, 327, 205, 46, 32, null);
@@ -230,8 +235,6 @@ public class JFGameFinishedResults extends JFrame{
 	public void setImagesOfPlayer(ImageIcon ImageUser1, ImageIcon ImageUser2) throws IOException {
 		userImage1 = ImageUser1;
 		userImage2 = ImageUser2;
-		this.revalidate();
-		this.repaint();
 		
 	}
 	

@@ -19,7 +19,6 @@ import models.AccountInfo;
 import models.QuestionList;
 import models.TypeQuestion;
 import models.User;
-import structure.Node;
 import structure.NodeSimpleList;
 import structure.SimpleList;
 import utilities.Utilities;

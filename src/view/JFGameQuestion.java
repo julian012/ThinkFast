@@ -4,12 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-
+import java.io.InputStream;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -18,7 +18,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
-import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.text.SimpleAttributeSet;
@@ -27,6 +26,8 @@ import javax.swing.text.StyledDocument;
 
 import controller.ClientController;
 import controller.Events;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 public class JFGameQuestion extends JFrame{
 
@@ -126,7 +127,7 @@ public class JFGameQuestion extends JFrame{
 		btnGameInstructions.setBorderPainted(false);
 		btnGameInstructions.setToolTipText("Instrucciones de juego");
 		btnGameInstructions.addActionListener(clientController);
-		//btnGameInstructions.setActionCommand(Events.SHOW_JDGAMEINSTRUCTIONS.toString());
+		btnGameInstructions.setActionCommand(Events.SHOW_INSTRUCTIONS.toString());
 		btnGameInstructions.setCursor(Constraints.HAND);
 		btnGameInstructions.setBounds(645, 10, 45, 45);
 		this.add(btnGameInstructions);
@@ -319,23 +320,6 @@ public class JFGameQuestion extends JFrame{
 		btnAnswer4.setEnabled(status);
 	}
 	
-	public void validateQuestion(JButton button) {
-		statusquestions(false);
-		if(button.getText().equals(answer)) {
-			manageCorrectAnswer(button);
-			money +=50;
-			if(rivalAnswering) {
-				correct += 100;
-			}else {
-				correct += 50;
-			}
-		}else {
-			manageIncorrectAnswer(button);
-			changeColonCorrectAnswer();
-			money +=20;
-		}
-		time = 19;
-	}
 	
 	public void changeColonCorrectAnswer() {
 		if(btnAnswer1.getText().equals(answer)) {
@@ -359,4 +343,51 @@ public class JFGameQuestion extends JFrame{
 	public int getCorrect() {
 		return correct;
 	}
+	
+	//Cambios
+	
+	public void validateQuestion(JButton button) {
+		statusquestions(false);
+		if(button.getText().equals(answer)) {
+			//playSoundCorrectAnswer();
+			manageCorrectAnswer(button);
+			money +=50;
+			if(rivalAnswering) {
+				correct += 100;
+			}else {
+				correct += 50;
+			}
+		}else {
+			//playSoundIncorrectAnswer();
+			manageIncorrectAnswer(button);
+			changeColonCorrectAnswer();
+			money +=20;
+		}
+		time = 19;
+	}
+	
+		
+//		private void playSoundCorrectAnswer() {
+//			try {
+//				InputStream in = new FileInputStream(new File(getClass().getResource("../view/correct.wav").toURI()));
+//				AudioStream audio;
+//				audio = new AudioStream(in);
+//				AudioPlayer.player.start(audio);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+
+//		private void playSoundIncorrectAnswer() {
+//			try {
+//				InputStream in = new FileInputStream("src/view/incorrect.wav");
+//				AudioStream audio;
+//				audio = new AudioStream(in);
+//				AudioPlayer.player.start(audio);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
 }

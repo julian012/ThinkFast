@@ -6,14 +6,15 @@
   <powerList />
   <questionList>
     <question>MUSIC</question>
-    <question>GEOGRAPHY</question>
     <question>HISTORY</question>
-    <question>MOVIES</question>
     <question>LITERATURE</question>
     <question>ART</question>
+    <question>SPORTS</question>
+    <question>SCIENCE</question>
+    <question>ENTERTAIMENT</question>
   </questionList>
-  <totalGames>1</totalGames>
-  <games>1</games>
-  <money>770</money>
-  <experience>850</experience>
+  <totalGames>8</totalGames>
+  <games>3</games>
+  <money>3140</money>
+  <experience>3000</experience>
 </accountInfo>

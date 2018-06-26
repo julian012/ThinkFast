@@ -19,9 +19,12 @@ import models.QuestionList;
 import models.Result;
 import observer.IObsevable;
 import observer.IObsever;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 import utilities.Utilities;
 import view.JDSystemMessage;
 import view.JFGameFinishedResults;
+import view.JFGameInstructions;
 import view.JFGameQuestion;
 import view.JFMainWindowGame;
 import view.JFSingIn;
@@ -40,6 +43,7 @@ public class ClientController implements ActionListener, WindowListener, IObseve
 	private JFGameQuestion jfGame;
 	private boolean statusGameOneOne;
 	private JFGameFinishedResults finishedResults;
+	private JFGameInstructions jfGameInstructions;
 
 	public ClientController() {
 		loadProperties();
@@ -210,17 +214,20 @@ public class ClientController implements ActionListener, WindowListener, IObseve
 		switch (Events.valueOf(option)) {
 		case SING_IN:
 			singIn();
+			playSoundLoginGame();
 			break;
 		case CHANGE_TO_SING_UP:
 			changeTosingUp();
 			break;
 		case SING_UP:
 			singUp();
+			playSoundLoginGame();
 			break;
 		case COME_BACK_CREATE:
 			backToLogin();
 			break;
 		case CLOSE_APP:
+			playSoundFinishGame();
 			closeApp();
 			break;
 		case QUESTION_PANEL:
@@ -231,12 +238,19 @@ public class ClientController implements ActionListener, WindowListener, IObseve
 			break;
 		case PLAY_ONE_VS_ONE:
 			playOneVsOne();
+			playSoundInitGame();
 			break;
 		case WAITING_OPPONENT_CANCEL:
 			cancelWaittingOpponent();
 			break;
 		case COME_BACK_HOMEMENU:
 			comeBackHomeMenu();
+			break;
+		case INSTRUCTIONS_COME_BACK_TO_GAME:
+			instructionsComebackToGame();
+			break;
+		case SHOW_INSTRUCTIONS:
+			showInstructions();
 			break;
 		default:
 			break;
@@ -368,5 +382,52 @@ public class ClientController implements ActionListener, WindowListener, IObseve
 		jfGame.setVisible(false);
 		
 	}
+	
+	//Cambios 2:39
+	private void instructionsComebackToGame() {
+		jfGameInstructions.setVisible(false);
+	}
+	
+	private void showInstructions() {
+		jfGameInstructions = new JFGameInstructions(this);
+		jfGameInstructions.setVisible(true);
+	}
 
+	// NUEVOS CAMBIOS ACERCA DEL MANEJO DE SONIDOS
+			
+		private void playSoundInitGame()  {
+			try {
+				InputStream in = new FileInputStream("src/view/loop2.wav");
+				AudioStream audio;
+				audio = new AudioStream(in);
+				AudioPlayer.player.start(audio);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+
+		private void playSoundLoginGame()  {
+			try {
+				InputStream in = new FileInputStream("src/view/login.wav");
+				AudioStream audio;
+				audio = new AudioStream(in);
+				AudioPlayer.player.start(audio);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		private void playSoundFinishGame() {
+			try {
+				InputStream in = new FileInputStream("src/view/finish_game.wav");
+				AudioStream audio;
+				audio = new AudioStream(in);
+				AudioPlayer.player.start(audio);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 }

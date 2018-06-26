@@ -1,5 +1,7 @@
 package controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,18 +15,23 @@ import models.Server;
 import observer.IObsevable;
 import observer.IObsever;
 import persistence.FileManager;
+import view.JFServer;
 
-public class ServerController implements IObsever {
+public class ServerController implements IObsever, ActionListener {
 	
 	private Server server;
 	private Properties prop;
 	private InputStream input;
 	private FileManager fileManager;
 	private IObsevable obsevable;
+	private JFServer jfServer;
+	
 	private static final Logger LOGGER = Logger.getAnonymousLogger();
 	
 	public ServerController() {
-		loadProperties();
+		jfServer = new JFServer(this);
+		jfServer.setVisible(true);
+		
 	}
 	
 	public void loadProperties() {
@@ -87,5 +94,18 @@ public class ServerController implements IObsever {
 	public void setResultsGameOneVsOne(Result playerA, Result playerB) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String option = e.getActionCommand();
+		switch (Events.valueOf(option)) {
+		case INIT_SERVER:
+			loadProperties();
+			jfServer.dispose();
+		default:
+			break;
+		}
+
 	}
 }

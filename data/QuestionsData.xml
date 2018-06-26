@@ -531,4 +531,94 @@
 		<option>90</option>
 		<answer>365</answer>
 	</question>
+	<question>
+		<topic>MUSIC</topic>
+		<message>¿Quién canta "Billie Jean"?</message>
+		<option>George Michael</option>
+		<option>Eminem</option>
+		<option>Michael Jackson</option>
+		<option>Pet Shop Boys</option>
+		<answer>Michael Jackson</answer>
+	</question>
+	<question>
+		<topic>GEOGRAPHY</topic>
+		<message>¿Cuál es el ingredinte primario de una fondue suiza?</message>
+		<option>Pollo</option>
+		<option>Queso</option>
+		<option>H0ngos</option>
+		<option>Anchoas</option>
+		<answer>Queso</answer>
+	</question>
+	<question>
+		<topic>GEOGRAPHY</topic>
+		<message>¿Cuántos colores hay en la badera de Francia?</message>
+		<option>Tres</option>
+		<option>Trece</option>
+		<option>Dos</option>
+		<option>Cinco</option>
+		<answer>Tres</answer>
+	</question>
+	<question>
+		<topic>LITERATURE</topic>
+		<message>¿De qué campo es el término "Tremolo"?</message>
+		<option>Música</option>
+		<option>Geología</option>
+		<option>Antropología</option>
+		<option>Física</option>
+		<answer>Música</answer>
+	</question>
+	<question>
+		<topic>GEOGRAPHY</topic>
+		<message>¿Cuántas estrellas hay en la bandera de China?</message>
+		<option>5</option>
+		<option>10</option>
+		<option>8</option>
+		<option>4</option>
+		<answer>10</answer>
+	</question>
+	<question>
+		<topic>GEOGRAPHY</topic>
+		<message>¿En qué pais se encuentra la playa de Waikiki?</message>
+		<option>Francia</option>
+		<option>Estados Unidos</option>
+		<option>Brasil</option>
+		<option>India</option>
+		<answer>Estados Unidos</answer>
+	</question>
+	<question>
+		<topic>ENTERTAIMENT</topic>
+		<message>Los Premios Pulitzer se dan por conseguir una serie de logros en:</message>
+		<option>Medicina</option>
+		<option>Periodismo</option>
+		<option>TV</option>
+		<option>Peliculas</option>
+		<answer>Periodismo</answer>
+	</question>
+	<question>
+		<topic>GEOGRAPHY</topic>
+		<message>¿Cuándo están abiertas las Salas de Estado del Palacio de Buckingham abiertas cada año?</message>
+		<option>Enero</option>
+		<option>Febrero</option>
+		<option>Agosto y septiembre</option>
+		<option>Junio y julio</option>
+		<answer>Agosto y septiembre</answer>
+	</question>
+	<question>
+		<topic>PHILOSOPHY</topic>
+		<message>Albert Camus fue un famoso:</message>
+		<option>Novelista alemán</option>
+		<option>Filósofo francés</option>
+		<option>Químico británico</option>
+		<option>Cantante estadounidense</option>
+		<answer>Filósofo francés</answer>
+	</question>
+	<question>
+		<topic>GEOGRAPHY</topic>
+		<message>¿En qué país se encuentran aún los pandas gigantes en la naturaleza?</message>
+		<option>China</option>
+		<option>Japon</option>
+		<option>Israel</option>
+		<option>Australia</option>
+		<answer>China</answer>
+	</question>
 </questions>
