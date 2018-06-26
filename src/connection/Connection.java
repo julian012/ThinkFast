@@ -7,6 +7,7 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -15,6 +16,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 import models.QuestionList;
+import models.Result;
 import models.Server;
 import models.User;
 import observer.IObsevable;
@@ -148,6 +150,41 @@ public class Connection extends Thread implements IObsevable{
 		}
 	}
 	
+	public void opponentAnswered() {
+		try {
+			output.writeUTF(Request.OPPONENT_ANSWERED.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void gameFinishOnevsOne() throws IOException {
+		String id = input.readUTF();
+		int money = input.readInt();
+		int points = input.readInt();
+		String nickName = user.getName();
+		BufferedImage image = ImageIO.read(new File(user.getPathImageUser()));
+		Result result = new Result(id, nickName, money, points, image);
+		server.gameFinishOnevsOne(result);
+	}
+	
+	public void getResultsFinalGameOnevsOne(Result playerA, Result playerB) {
+		try {
+			ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+			output.writeUTF(Request.SEND_RESULTS_GAME_ONE_VS_ONE.toString());
+			objectOutputStream.writeObject(playerA);
+			objectOutputStream.writeObject(playerB);
+			objectOutputStream.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		/**
+		 * Estos valores son mandados a al cliente para que sean mostrado de una manera visual los resultados
+		 */
+	}
+	
 	@Override
 	public void run() {
 		System.out.println("La aplicacion comenzo");
@@ -168,6 +205,9 @@ public class Connection extends Thread implements IObsevable{
 					break;
 				case CHANGE_QUESTION_ONE_VS_ONE:
 					changeQuestion();
+					break;
+				case GAME_FINISH_ONE_VS_ONE:
+					gameFinishOnevsOne();
 					break;
 				default:
 					break;

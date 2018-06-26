@@ -16,5 +16,7 @@ public interface IObsever  {
 	public void sendQuestionOnevsOne();
 	
 	public void changeQuestion(String id);
+	
+	public void opponentAnswered();
 
 }

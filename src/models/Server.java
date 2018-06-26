@@ -165,6 +165,18 @@ public class Server extends Thread implements IObsevable, IObsever{
 		}
 	}
 	
+	public void gameFinishOnevsOne(Result result) {
+		sendInfoResultToPlayer(result);
+	}
+	
+	public void sendInfoResultToPlayer(Result result) {
+		for (Game game : gameList) {
+			if(!game.isGameFinish()) {
+				game.addResultToPlayer(result);
+			}
+		}
+	}
+	
 	@Override
 	public void run() {
 		while(serverUp) {
@@ -214,7 +226,7 @@ public class Server extends Thread implements IObsevable, IObsever{
 		if(game != null ) {
 			game.startGame();
 		}else {
-			game = new Game(connection, questionList);
+			game = new Game(connection, questionList, this);
 			gameList.add(game);
 		}
 		
@@ -252,7 +264,22 @@ public class Server extends Thread implements IObsevable, IObsever{
 	
 	public void changeStatusUser(String id) {
 		for (int i = 0; i < gameList.size(); i++) {
-			gameList.get(i).getUserById(id);
+			if(gameList.get(i).isGameInProcess()) {
+				gameList.get(i).getUserById(id);
+			}
 		}
 	}
+	
+	public void updateValuesInUsers(Result playerA, Result playerB) {
+		/**
+		 * Con los resultados se mandan para que sean actualizados y guardados en persistencia
+		 */
+	}
+
+	@Override
+	public void opponentAnswered() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

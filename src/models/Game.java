@@ -13,17 +13,21 @@ import structure.SimpleList;
 public class Game {
 
 	private Connection playerA;
+	private Result resultPlayerA;
 	private Connection playerB;
+	private Result resultPlayerB;
 	private boolean nextQuestionPlayerA;
 	private boolean nextQuestionPlayerB;
 	private ArrayList<QuestionList> questionList;
 	private boolean waitForPlayer;
 	private boolean gameInProcess;
 	private boolean gameFinish;
+	private Server server;
 	private static final Logger LOGGER = Logger.getAnonymousLogger();
 
 	@SuppressWarnings("unchecked")
-	public Game(Connection playerA, ArrayList<QuestionList> questionList) {
+	public Game(Connection playerA, ArrayList<QuestionList> questionList, Server server) {
+		this.server = server;
 		this.playerA = playerA;
 		this.questionList = (ArrayList<QuestionList>)questionList.clone();
 		waitForPlayer = true;
@@ -114,6 +118,25 @@ public class Game {
 		}
 		validateChangeQuestion();
 	}
+	
+	public void addResultToPlayer(Result result) {
+		if(result.getId().equals(playerA.getUser().getId())) {
+			resultPlayerA = result;
+		}else if(result.getId().equals(playerB.getUser().getId())) {
+			resultPlayerB = result;
+		}
+		validateFinishGame();
+	}
+	
+	public void validateFinishGame() {
+		if(resultPlayerA != null && resultPlayerB != null) {
+			gameInProcess = false;
+			gameFinish = true;
+			playerA.getResultsFinalGameOnevsOne(resultPlayerA, resultPlayerB);
+			playerB.getResultsFinalGameOnevsOne(resultPlayerA, resultPlayerB);
+			server.updateValuesInUsers(resultPlayerA, resultPlayerB);
+		}
+	}
 
 	public void validateChangeQuestion() {
 		if(nextQuestionPlayerA && nextQuestionPlayerB) {
@@ -121,6 +144,18 @@ public class Game {
 			playerB.nextQuestion();
 			nextQuestionPlayerA = false;
 			nextQuestionPlayerB = false;
+		}else {
+			if(!nextQuestionPlayerA) {
+				/**
+				 * El usuario A ya consesto
+				 */
+				playerB.opponentAnswered();
+			}else {
+				/**
+				 * EL usuario b a contesto
+				 */
+				playerA.opponentAnswered();
+			}
 		}
 	}
 }

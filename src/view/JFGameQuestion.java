@@ -43,6 +43,7 @@ public class JFGameQuestion extends JFrame{
 	private String answer;
 	private int correct;
 	private int money;
+	private boolean rivalAnswering;
 	
 	private JLabel lblRivalAnswering;
 	private JButton btnQuestion;
@@ -248,7 +249,8 @@ public class JFGameQuestion extends JFrame{
 
 	//Maneja el cambio de texto en caso de que el contrincante ya haya respondido
 	public void changeRivalAnsweringStatus(Boolean status) {
-		if (status) {
+		rivalAnswering = status;
+		if (rivalAnswering) {
 			lblRivalAnswering.setText(Constraints.RIVAL_ANSWERING);
 		} else {
 			lblRivalAnswering.setText(Constraints.RIVAL_NOT_ANSWERING);
@@ -257,6 +259,7 @@ public class JFGameQuestion extends JFrame{
 	
 	//Asigna el texto de cada ronda de preguntas a los botones
 	public void setQuestionAnswer(String[] question, String answer) {
+		rivalAnswering = false;
 		pbMaxTime.setValue(0);
 		gobackBlueColor();
 		btnQuestion.setText(question[0]);
@@ -312,12 +315,16 @@ public class JFGameQuestion extends JFrame{
 		statusquestions(false);
 		if(button.getText().equals(answer)) {
 			manageCorrectAnswer(button);
-			money +=10;
-			correct++;
+			money +=50;
+			if(rivalAnswering) {
+				correct += 100;
+			}else {
+				correct += 50;
+			}
 		}else {
 			manageIncorrectAnswer(button);
 			changeColonCorrectAnswer();
-			money +=2;
+			money +=20;
 		}
 		time = 19;
 	}
@@ -335,5 +342,13 @@ public class JFGameQuestion extends JFrame{
 		}else {
 			manageCorrectAnswer(btnAnswer4);
 		}
+	}
+	
+	public int getMoney() {
+		return money;
+	}
+	
+	public int getCorrect() {
+		return correct;
 	}
 }

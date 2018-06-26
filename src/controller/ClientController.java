@@ -318,23 +318,33 @@ public class ClientController implements ActionListener, WindowListener, IObseve
 
 	@Override
 	public void sendQuestionOnevsOne() {
-		QuestionList questionList = client.removeFirstQuestion();
-		if(jfGame != null) {
-			jfGame.reloadTime();
-			jfGame.setQuestionAnswer(questionList.getQuestion(),questionList.getAnswer());
-			startTheadTime();
-		}else{
-			jfGame = new JFGameQuestion(this,questionList.getQuestion(),questionList.getAnswer());
-			jfGame.reloadTime();
-			startTheadTime();		
+		QuestionList questionList = client.getQuestion();
+		if(questionList != null) {
+			mainWindowGame.setVisible(false);
+			if(jfGame != null) {
+				jfGame.reloadTime();
+				jfGame.setQuestionAnswer(questionList.getQuestion(),questionList.getAnswer());
+				startTheadTime();
+			}else{
+				jfGame = new JFGameQuestion(this,questionList.getQuestion(),questionList.getAnswer());
+				jfGame.reloadTime();
+				startTheadTime();		
+			}
+			jfGame.setVisible(true);
+		}else {
+			client.gameFinishOnevsOne(jfGame.getMoney(),jfGame.getCorrect());
 		}
-		jfGame.setVisible(true);
 	}
 
 	@Override
 	public void changeQuestion(String id) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void opponentAnswered() {
+		jfGame.changeRivalAnsweringStatus(true);
 	}
 
 }

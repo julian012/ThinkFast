@@ -7,6 +7,7 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
@@ -110,8 +111,8 @@ public class Client extends Thread implements IObsevable {
 	
 	public void resSendInfoUser() {
 		try {
-			String name = input.readUTF();
 			String id = input.readUTF();
+			String name = input.readUTF();
 			String nickname = input.readUTF();
 			String email = input.readUTF();
 			String password = input.readUTF();
@@ -197,6 +198,21 @@ public class Client extends Thread implements IObsevable {
 		}
 	}
 	
+	public void opponentAnswered() {
+		for (IObsever o : obseverList) {
+			o.opponentAnswered();
+		}
+	}
+	
+	public void getResultsGameOnevsOne() throws IOException, ClassNotFoundException {
+		ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
+		Result playerA = (Result)inputStream.readObject();
+		System.out.println("Jugador a " +  playerA.getId());
+		Result playerB = (Result)inputStream.readObject();
+		System.out.println("Jugador b " +  playerB.getId());
+		inputStream.close();
+	}
+	
 	@Override
 	public void run() {
 		System.out.println("La aplicacion comenzo");
@@ -216,10 +232,18 @@ public class Client extends Thread implements IObsevable {
 				case SET_NEXT_QUESTION_ONE_VS_ONE:
 					sendQuestionNameGameOnevsOne();
 					break;
+				case OPPONENT_ANSWERED:
+					opponentAnswered();
+					break;
+				case SEND_RESULTS_GAME_ONE_VS_ONE:
+					getResultsGameOnevsOne();
+					break;
 				default:
 					break;
 				}
 			} catch (IOException e) {
+				LOGGER.log(Level.SEVERE, e.getMessage());
+			} catch (ClassNotFoundException e) {
 				LOGGER.log(Level.SEVERE, e.getMessage());
 			}
 		}
@@ -230,8 +254,18 @@ public class Client extends Thread implements IObsevable {
 			output.writeUTF(Request.CHANGE_QUESTION_ONE_VS_ONE.toString());
 			output.writeUTF(user.getId());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, e.getMessage());
+		}
+	}
+	
+	public void gameFinishOnevsOne(int money, int points) {
+		try {
+			output.writeUTF(Request.GAME_FINISH_ONE_VS_ONE.toString());
+			output.writeUTF(user.getId());
+			output.writeInt(money);
+			output.writeInt(points);
+		} catch (IOException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage());
 		}
 	}
 	

@@ -75,4 +75,10 @@ public class ServerController implements IObsever {
 		
 		
 	}
+
+	@Override
+	public void opponentAnswered() {
+		// TODO Auto-generated method stub
+		
+	}
 }
