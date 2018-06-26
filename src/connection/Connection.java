@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 import models.QuestionList;
 import models.Result;
@@ -163,19 +164,46 @@ public class Connection extends Thread implements IObsevable{
 		String id = input.readUTF();
 		int money = input.readInt();
 		int points = input.readInt();
+		//boolean winner = input.readBoolean();
 		String nickName = user.getName();
-		BufferedImage image = ImageIO.read(new File(user.getPathImageUser()));
-		Result result = new Result(id, nickName, money, points, image);
+		ImageIcon image = new ImageIcon(ImageIO.read(new File(user.getPathImageUser())));
+		Result result = new Result(id, nickName, money, points,false, image);
 		server.gameFinishOnevsOne(result);
 	}
 	
 	public void getResultsFinalGameOnevsOne(Result playerA, Result playerB) {
+		LOGGER.log(Level.SEVERE, "Llego los resultados al jugador");
 		try {
-			ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 			output.writeUTF(Request.SEND_RESULTS_GAME_ONE_VS_ONE.toString());
-			objectOutputStream.writeObject(playerA);
-			objectOutputStream.writeObject(playerB);
-			objectOutputStream.close();
+			//Informacion usuario A
+			output.writeUTF(playerA.getId());
+			output.writeUTF(playerA.getNickName());
+			output.writeInt(playerA.getMoney());
+			output.writeInt(playerA.getPoints());
+			output.writeBoolean(playerA.isWinner());
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			BufferedImage imagePlayerA = (BufferedImage) playerA.getImage().getImage();
+			ImageIO.write(imagePlayerA, playerA.getId(), outputStream);
+			byte[] imageData = outputStream.toByteArray();
+			output.writeUTF(playerA.getId() + ".png");
+			output.writeInt(imageData.length);
+			output.write(imageData);
+			LOGGER.log(Level.SEVERE, "Mando Jugador");
+			//Informacion usuario B
+			output.writeUTF(playerB.getId());
+			output.writeUTF(playerB.getNickName());
+			output.writeInt(playerB.getMoney());
+			output.writeInt(playerB.getPoints());
+			output.writeBoolean(playerB.isWinner());
+			ByteArrayOutputStream outputStreamB = new ByteArrayOutputStream();
+			BufferedImage imagePlayerB = (BufferedImage) playerB.getImage().getImage();
+			ImageIO.write(imagePlayerB, playerB.getId(), outputStream);
+			byte[] imageDataB = outputStreamB.toByteArray();
+			output.writeUTF(playerB.getId() + ".png");
+			output.writeInt(imageDataB.length);
+			output.write(imageDataB);
+			LOGGER.log(Level.SEVERE, "Mando Jugador 2");
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -183,6 +211,18 @@ public class Connection extends Thread implements IObsevable{
 		/**
 		 * Estos valores son mandados a al cliente para que sean mostrado de una manera visual los resultados
 		 */
+	}
+	
+	private void reloadInfoUser() throws IOException {
+		output.writeUTF(Request.RELOAD_INFO_USER.toString());
+		output.writeInt(user.getAccountInfo().getExperience());
+		output.writeInt(user.getAccountInfo().getMoney());
+		output.writeInt(user.getAccountInfo().getGames());
+		output.writeInt(user.getAccountInfo().getTotalGames());
+	}
+	
+	private void cancelWaitOpponentonevsOne() {
+		server.cancelWaitOpponentonevsOne(this);
 	}
 	
 	@Override
@@ -208,6 +248,12 @@ public class Connection extends Thread implements IObsevable{
 					break;
 				case GAME_FINISH_ONE_VS_ONE:
 					gameFinishOnevsOne();
+					break;
+				case RELOAD_INFO_USER:
+					reloadInfoUser();
+					break;
+				case CANCEL_WAIT_OPPONENT_ONE_VS_ONE:
+					cancelWaitOpponentonevsOne();
 					break;
 				default:
 					break;

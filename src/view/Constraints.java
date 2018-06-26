@@ -54,5 +54,9 @@ public class Constraints {
 		public static final Color COLOR_BLUE = Color.decode("#5DADE2");
 		public static final Color COLOR_RED = Color.decode("#E74C3C");
 		public static final String LBL_POWERS_INFO = "Poderes: ";
+		
+	// Resultados Juego
+		public static final String LBL_TITLE_WINNER = "Ganador";
+		public static final String LBL_TITLE_LOOSER = "Perdedor";
 	
 }

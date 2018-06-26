@@ -16,10 +16,12 @@ import connection.Connection;
 import connection.Request;
 import models.Client;
 import models.QuestionList;
+import models.Result;
 import observer.IObsevable;
 import observer.IObsever;
 import utilities.Utilities;
 import view.JDSystemMessage;
+import view.JFGameFinishedResults;
 import view.JFGameQuestion;
 import view.JFMainWindowGame;
 import view.JFSingIn;
@@ -36,7 +38,8 @@ public class ClientController implements ActionListener, WindowListener, IObseve
 	private IObsevable obsevable;
 	private JFMainWindowGame mainWindowGame;
 	private JFGameQuestion jfGame;
-	private boolean statusGameOneOne; 
+	private boolean statusGameOneOne;
+	private JFGameFinishedResults finishedResults;
 
 	public ClientController() {
 		loadProperties();
@@ -191,9 +194,14 @@ public class ClientController implements ActionListener, WindowListener, IObseve
 	public void cancelWaittingOpponent() {
 		try {
 			systemMessage.dispose();
+			client.clientCancelOpponentOnevsOne();
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+	}
+	
+	private void comeBackHomeMenu() {
+		client.comeBackHomeMenu();
 	}
 
 	@Override
@@ -226,6 +234,9 @@ public class ClientController implements ActionListener, WindowListener, IObseve
 			break;
 		case WAITING_OPPONENT_CANCEL:
 			cancelWaittingOpponent();
+			break;
+		case COME_BACK_HOMEMENU:
+			comeBackHomeMenu();
 			break;
 		default:
 			break;
@@ -261,9 +272,13 @@ public class ClientController implements ActionListener, WindowListener, IObseve
 
 	@Override
 	public void update() {
-		//		mainWindowGame.initComponents(
-		//				this
-		//				, client.getUser());
+		int xp = client.getXp();
+		int money = client.getMoney();
+		int game = client.getGames();
+		int totalGames = client.getTotalGames();
+		finishedResults.setVisible(false);
+		mainWindowGame.updateValues(money, xp,game, totalGames);
+		mainWindowGame.setVisible(true);
 	}
 
 	@Override
@@ -345,6 +360,13 @@ public class ClientController implements ActionListener, WindowListener, IObseve
 	@Override
 	public void opponentAnswered() {
 		jfGame.changeRivalAnsweringStatus(true);
+	}
+
+	@Override
+	public void setResultsGameOneVsOne(Result playerA, Result playerB) {
+		finishedResults = new JFGameFinishedResults(this, playerA, playerB);
+		jfGame.setVisible(false);
+		
 	}
 
 }

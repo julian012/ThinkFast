@@ -300,6 +300,14 @@ public class JFMainWindowGame extends JFrame implements MouseListener {
 		}
 
 	}
+	
+	public void updateValues(int money, int xp, int game, int totalGames) {
+		xpText.setText(Constraints.LABEL_XP + String.valueOf(xp));
+		moneyText.setText(Constraints.LABEL_MONEY + String.valueOf(money));
+		jLLeague.setText((Constraints.LABEL_LEAGUE + Utilities.getLeague(xp)));
+		jLTotalGames.setText(Constraints.LABEL_TOTAL_GAMES + String.valueOf(totalGames));
+		jLGames.setText(Constraints.LABEL_GAMES + String.valueOf(game));
+	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {

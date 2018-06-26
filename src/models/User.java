@@ -124,6 +124,4 @@ public class User {
 	public void setQuestionList(SimpleList<String> questionList) {
 		accountInfo.setQuestionList(questionList);
 	}
-	
-	
 }

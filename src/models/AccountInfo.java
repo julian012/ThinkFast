@@ -101,4 +101,20 @@ public class AccountInfo {
 	public void setOnFire(int onFire) {
 		this.onFire = onFire;
 	}
+	
+	public void addMoney(int m) {
+		money += m;
+	}
+	
+	public void addPoints(int p) {
+		experience += p;
+	}
+	
+	public void addGame() {
+		games++;
+	}
+	
+	public void addTotalGames() {
+		totalGames++;
+	}
 }

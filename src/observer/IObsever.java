@@ -1,6 +1,7 @@
 package observer;
 
 import connection.Connection;
+import models.Result;
 
 public interface IObsever  {
 	
@@ -18,5 +19,7 @@ public interface IObsever  {
 	public void changeQuestion(String id);
 	
 	public void opponentAnswered();
+	
+	public void setResultsGameOneVsOne(Result playerA,Result playerB);
 
 }

@@ -130,12 +130,22 @@ public class Game {
 	
 	public void validateFinishGame() {
 		if(resultPlayerA != null && resultPlayerB != null) {
+			LOGGER.log(Level.SEVERE, "Termino el juego se empieza a mandar los resultados");
+			if(resultPlayerA.getPoints() > resultPlayerB.getPoints()) {
+				resultPlayerA.setisWinrer(true);
+			}else {
+				resultPlayerB.setisWinrer(true);
+			}
 			gameInProcess = false;
 			gameFinish = true;
 			playerA.getResultsFinalGameOnevsOne(resultPlayerA, resultPlayerB);
 			playerB.getResultsFinalGameOnevsOne(resultPlayerA, resultPlayerB);
 			server.updateValuesInUsers(resultPlayerA, resultPlayerB);
 		}
+	}
+	
+	public Connection getPlayerA() {
+		return playerA;
 	}
 
 	public void validateChangeQuestion() {
@@ -145,7 +155,7 @@ public class Game {
 			nextQuestionPlayerA = false;
 			nextQuestionPlayerB = false;
 		}else {
-			if(!nextQuestionPlayerA) {
+			if(nextQuestionPlayerA) {
 				/**
 				 * El usuario A ya consesto
 				 */

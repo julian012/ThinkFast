@@ -1,6 +1,6 @@
 package models;
 
-import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
 
 public class Result {
 	
@@ -8,14 +8,24 @@ public class Result {
 	private String nickName;
 	private int money;
 	private int points;
-	private BufferedImage image;
+	private ImageIcon image;
+	private boolean winner;
 	
-	public Result(String id, String nickName, int money, int points, BufferedImage image) {
+	public Result(String id, String nickName, int money, int points, boolean winner ,ImageIcon image) {
 		this.id = id;
 		this.nickName = nickName;
 		this.money = money;
 		this.points = points;
 		this.image = image;
+		this.winner = winner;
+	}
+	
+	public boolean isWinner() {
+		return winner;
+	}
+	
+	public void setisWinrer(boolean status) {
+		winner = status;
 	}
 
 	public String getId() {
@@ -34,7 +44,7 @@ public class Result {
 		return points;
 	}
 
-	public BufferedImage getImage() {
+	public ImageIcon getImage() {
 		return image;
 	}
 }

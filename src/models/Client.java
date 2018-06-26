@@ -7,7 +7,6 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
@@ -43,6 +42,10 @@ public class Client extends Thread implements IObsevable {
 	private ArrayList<QuestionList> questionList;
 	private QuestionList actualQuestion;
 	private int countQuestion;
+	private int money;
+	private int xp;
+	private int games;
+	private int totalGames;
 	
 	public Client(String host, int port) {
 		obseverList = new ArrayList<>();
@@ -126,7 +129,6 @@ public class Client extends Thread implements IObsevable {
 			AccountInfo accountInfo = fileManager.getAccountInfoByFile(file);
 			file.delete();
 			user = new User(id, name , nickname, email, password, birthDate, imageUser , accountInfo);
-			notifyChange();
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		} catch (JDOMException e) {
@@ -204,13 +206,59 @@ public class Client extends Thread implements IObsevable {
 		}
 	}
 	
-	public void getResultsGameOnevsOne() throws IOException, ClassNotFoundException {
-		ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
-		Result playerA = (Result)inputStream.readObject();
-		System.out.println("Jugador a " +  playerA.getId());
-		Result playerB = (Result)inputStream.readObject();
-		System.out.println("Jugador b " +  playerB.getId());
-		inputStream.close();
+	public void getResultsGameOnevsOne() throws IOException{
+		LOGGER.log(Level.SEVERE, "Llegaron resultados");
+//		String idA = input.readUTF();
+//		String nickNameA = input.readUTF();
+//		int moneyA = input.readInt();
+//		int pointsA = input.readInt();
+		Result playerA = new Result(input.readUTF(), input.readUTF(), input.readInt(), input.readInt(),input.readBoolean(), getImage());
+		Result playerB = new Result(input.readUTF(), input.readUTF(), input.readInt(), input.readInt(),input.readBoolean(), getImage());
+		for (IObsever o : obseverList) {
+			o.setResultsGameOneVsOne(playerA, playerB);
+		}
+	}
+	
+	public ImageIcon getImage() throws IOException {
+		input.readUTF();
+		byte[] image = new byte[input.readInt()];
+		input.readFully(image);
+		ImageIcon imageUser = new ImageIcon(image);
+		return imageUser;
+	}
+	
+	public void comeBackHomeMenu() {
+		try {
+			output.writeUTF(Request.RELOAD_INFO_USER.toString());
+		} catch (IOException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage());
+		}
+	}
+	
+	public void reloadInfoUser() throws IOException {
+		xp = input.readInt();
+		money = input.readInt();
+		games = input.readInt();
+		totalGames = input.readInt();
+		for (IObsever o : obseverList) {
+			o.update();
+		}
+	}
+	
+	public int getGames() {
+		return games;
+	}
+	
+	public int getTotalGames() {
+		return totalGames;
+	}
+	
+	public int getXp() {
+		return xp;
+	}
+	
+	public int getMoney() {
+		return money;
 	}
 	
 	@Override
@@ -238,12 +286,13 @@ public class Client extends Thread implements IObsevable {
 				case SEND_RESULTS_GAME_ONE_VS_ONE:
 					getResultsGameOnevsOne();
 					break;
+				case RELOAD_INFO_USER:
+					reloadInfoUser();
+					break;
 				default:
 					break;
 				}
 			} catch (IOException e) {
-				LOGGER.log(Level.SEVERE, e.getMessage());
-			} catch (ClassNotFoundException e) {
 				LOGGER.log(Level.SEVERE, e.getMessage());
 			}
 		}
@@ -279,5 +328,15 @@ public class Client extends Thread implements IObsevable {
 	@Override
 	public void removeObserver(IObsever obsever) {
 		obseverList.remove(obsever);
+	}
+
+	public void clientCancelOpponentOnevsOne() {
+		try {
+			output.writeUTF(Request.CANCEL_WAIT_OPPONENT_ONE_VS_ONE.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }

@@ -271,15 +271,56 @@ public class Server extends Thread implements IObsevable, IObsever{
 	}
 	
 	public void updateValuesInUsers(Result playerA, Result playerB) {
-		/**
-		 * Con los resultados se mandan para que sean actualizados y guardados en persistencia
-		 */
+		updateDataInfo(playerA);
+		updateDataInfo(playerB);
+		notifyChange();
+	}
+	
+	public void removeGames() {
+		for (int i = 0; i < gameList.size(); i++) {
+			if (gameList.get(i).isGameFinish()) {
+				gameList.remove(i);
+				return;
+			}
+		}
+	}
+	
+	public void updateDataInfo(Result player) {
+		NodeSimpleList<User> actualNode = userList.getHead();
+		while(actualNode != null) {
+			if(actualNode.getInfo().getId().equals(player.getId())) {
+				User user = actualNode.getInfo();
+				user.getAccountInfo().addMoney(player.getMoney());
+				user.getAccountInfo().addPoints(player.getPoints());
+				user.getAccountInfo().addTotalGames();
+				if(player.isWinner()) {
+					user.getAccountInfo().addGame();
+				}
+				return;
+			}
+			actualNode = actualNode.getNext();
+		}
 	}
 
 	@Override
 	public void opponentAnswered() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void setResultsGameOneVsOne(Result playerA, Result playerB) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void cancelWaitOpponentonevsOne(Connection connection) {
+		for(int i = 0; i < gameList.size(); i++) {
+			if(gameList.get(i).isWaitForPlayer() && gameList.get(i).getPlayerA().equals(connection)) {
+				gameList.remove(i);
+				return;
+			}
+		}
 	}
 	
 }

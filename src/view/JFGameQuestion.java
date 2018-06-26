@@ -18,10 +18,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
-
+import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.UIManager;
-
-
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 import controller.ClientController;
 import controller.Events;
@@ -46,7 +48,7 @@ public class JFGameQuestion extends JFrame{
 	private boolean rivalAnswering;
 	
 	private JLabel lblRivalAnswering;
-	private JButton btnQuestion;
+	private JTextPane btnQuestion;
 	private JButton btnAnswer1, btnAnswer2, btnAnswer3, btnAnswer4;
 	private JLabel lblPowers;
 	private ImageIcon powersInfoImage;
@@ -148,11 +150,16 @@ public class JFGameQuestion extends JFrame{
 		lblRivalAnswering.setBounds(260, 80, 365, 30);
 		this.add(lblRivalAnswering);
 		
-		btnQuestion = new JButton();
+		btnQuestion = new JTextPane();
 		btnQuestion.setBackground(Constraints.COLOR_ORANGE);
+		btnQuestion.setForeground(Color.BLACK);
+		StyledDocument doc = btnQuestion.getStyledDocument();
+		
+		SimpleAttributeSet center = new SimpleAttributeSet();
+		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+		doc.setParagraphAttributes(0, doc.getLength(), center, false);
 		btnQuestion.setFont(Constraints.FONT_MAIN_WINDOW_LABELS_SMALL);
 		btnQuestion.setBounds(262, 130, 320, 70);
-		btnQuestion.setEnabled(false);
 		this.add(btnQuestion);
 		
 		btnAnswer1 = new JButton();
@@ -259,6 +266,7 @@ public class JFGameQuestion extends JFrame{
 	
 	//Asigna el texto de cada ronda de preguntas a los botones
 	public void setQuestionAnswer(String[] question, String answer) {
+		lblRivalAnswering.setText(Constraints.RIVAL_NOT_ANSWERING);
 		rivalAnswering = false;
 		pbMaxTime.setValue(0);
 		gobackBlueColor();

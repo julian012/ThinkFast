@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import connection.Connection;
+import models.Result;
 import models.Server;
 import observer.IObsevable;
 import observer.IObsever;
@@ -78,6 +79,12 @@ public class ServerController implements IObsever {
 
 	@Override
 	public void opponentAnswered() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setResultsGameOneVsOne(Result playerA, Result playerB) {
 		// TODO Auto-generated method stub
 		
 	}
